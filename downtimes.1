@@ -1,0 +1,98 @@
+.\"-
+.\" Copyright (c) 2009-2010 EPIPE Communications. All rights reserved.
+.\"
+.\" This software is licensed under the terms and conditions of the FreeBSD
+.\" License which is also known as the Simplified BSD License. You should have
+.\" received a copy of that license along with this software.
+.\"
+.TH DOWNTIMES 1 "2010-05-29" "version 0.2"
+.SH NAME
+downtimes \- display system downtime records made by
+.BR downtimed (8)
+.SH SYNOPSIS
+.SY downtimes
+.OP \-d downtimedbfile
+.OP \-n num
+.OP \-s sleep
+.SY downtime
+.OP \-d downtimedbfile
+.OP \-n num
+.OP \-s sleep
+.SY downtimes
+.B \-v
+.SY downtime
+.B \-v
+.YS
+.SH DESCRIPTION
+The
+.B downtimes
+command displays the contents of the downtime database in human readable
+format. The downtime database is maintained by
+.BR downtimed (8).
+.PP
+The singular form
+.B downtime
+displays only details about the last time the system was down where 
+as the plural form
+.B downtimes
+displays all the records in the database. The
+.B \-n
+option can be used instead to specify arbitrary number of downtime
+records to output.
+.SH OPTIONS
+.TP
+.B \-d \fIdowntimedbfile\fR
+Use the specified downtime database file instead of the system default.
+.TP
+.B \-n \fInum\fR
+Define how many latest downtime records to output.
+.TP
+.B \-s \fIsleep\fR
+Calculate the approximate crash time by specifying what was the
+sleep value of
+.BR downtimed (8).
+.TP
+.B \-v
+Display the program version number, copyright message and the default
+settings.
+.SH EXIT STATUS
+The program exits 0 on success, and >0 if an error occurs.
+.SH SEE ALSO
+.BR downtimed (8), 
+.BR uptime (1), 
+.if !d pdfhref \
+http://dist.epipe.com/downtimed/
+.pdfhref W http://dist.epipe.com/downtimed/
+.SH BUGS
+The reporting accuracy in case of a system crash depends on how often the 
+time stamp is updated. 
+.SH COPYRIGHT
+Copyright \(co 2009\-2010 EPIPE Communications. All rights reserved.
+.PP
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions
+are met:
+.PP
+1. Redistributions of source code must retain the above copyright
+notice, this list of conditions and the following disclaimer.
+.PP
+2. Redistributions in binary form must reproduce the above copyright
+notice, this list of conditions and the following disclaimer in the
+documentation and/or other materials provided with the distribution.
+.PP
+THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+SUCH DAMAGE.
+.PP
+The views and conclusions contained in the software and documentation are 
+those of the authors and should not be interpreted as representing official 
+policies, either expressed or implied, of EPIPE Communications.
+.\" eof

@@ -9,9 +9,25 @@
 # 
 
 sbin_PROGRAMS = downtimed
-downtimed_SOURCES = downtimed.c
-dist_man_MANS = downtimed.8
+bin_PROGRAMS = downtimes
+downtimed_SOURCES = downtimed.c downtimedb.c downtimedb.h
+downtimes_SOURCES = downtimes.c downtimedb.c downtimedb.h
+dist_man_MANS = downtimed.8 downtimes.1
 
 EXTRA_DIST = README LICENSE INSTALL NEWS freebsd-startup.sh
+
+#install-exec-hook:
+#	ln -f $(DESTDIR)$(bindir)/downtimes$(EXEEXT) \
+#	    $(DESTDIR)$(bindir)/downtime$(EXEEXT)
+
+#install-data-hook:
+#	ln -f $(DESTDIR)$(mandir)/man1/downtimes.1 \
+#	    $(DESTDIR)$(mandir)/man1/downtime.1
+
+.1.pdf:
+	pdfroff --no-toc -man -mpdfmark $< > $@
+
+.8.pdf:
+	pdfroff --no-toc -man -mpdfmark $< > $@
 
 # eof

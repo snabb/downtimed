@@ -1,53 +1,24 @@
 .\"-
 .\" Copyright (c) 2009-2010 EPIPE Communications. All rights reserved.
-.\" 
-.\" Redistribution and use in source and binary forms, with or without
-.\" modification, are permitted provided that the following conditions
-.\" are met:
-.\" 1. Redistributions of source code must retain the above copyright
-.\"    notice, this list of conditions and the following disclaimer.
-.\" 2. Redistributions in binary form must reproduce the above copyright
-.\"    notice, this list of conditions and the following disclaimer in the
-.\"    documentation and/or other materials provided with the distribution.
 .\"
-.\" THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
-.\" ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-.\" IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
-.\" ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
-.\" FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-.\" DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
-.\" OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
-.\" HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
-.\" LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
-.\" OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
-.\" SUCH DAMAGE.
-.\" 
-.\" The views and conclusions contained in the software and documentation are 
-.\" those of the authors and should not be interpreted as representing official 
-.\" policies, either expressed or implied, of EPIPE Communications.
+.\" This software is licensed under the terms and conditions of the FreeBSD
+.\" License which is also known as the Simplified BSD License. You should have
+.\" received a copy of that license along with this software.
 .\"
-.TH DOWNTIMED 8 "2010-05-21" "version 0.1"
+.TH DOWNTIMED 8 "2010-05-29" "version 0.2"
 .SH NAME
-downtimed \- system downtime reporting daemon
+downtimed \- system downtime monitoring and reporting daemon
 .SH SYNOPSIS
-.B downtimed
-[
-.B \-d 
-.I datadir
-] [
-.B \-l 
-.I log
-] [
-.B \-p 
-.I pidfile
-] [
-.B \-S
-] [
-.B \-s 
-.I sleep
-] [
+.SY downtimed
+.OP \-D
+.OP \-d datadir
+.OP \-l log
+.OP \-p pidfile
+.OP \-S
+.OP \-s sleep
+.SY downtimed
 .B \-v
-]
+.YS
 .SH DESCRIPTION
 The
 .B downtimed
@@ -59,8 +30,12 @@ the disk.
 When the daemon is restarted during the next boot process,
 it will report how long the system was down and whether it was properly
 shut down or crashed. The downtime report is output to the system log 
-or to a specified log file.
+or to a specified log file. Also a record is appended to the downtime
+database.
 .SH OPTIONS
+.TP
+.B \-D
+Do not create nor update the downtime database.
 .TP
 .B \-d \fIdatadir\fR
 The directory where the time stamp files are located. If the directory 
@@ -111,8 +86,12 @@ shutdown is in process.
 .SH EXIT STATUS
 The daemon exits 0 on success, and >0 if an error occurs.
 .SH SEE ALSO
+.BR downtime (1), 
+.BR downtimes (1), 
 .BR syslog.conf (5), 
+.if !d pdfhref \
 http://dist.epipe.com/downtimed/
+.pdfhref W http://dist.epipe.com/downtimed/
 .SH BUGS
 The reporting accuracy in case of a system crash depends on how often the 
 time stamp is updated. 
@@ -123,7 +102,7 @@ system, it assumes that the system started when the daemon started.
 .PP
 Reporting is inaccurate if the system clock changes during system 
 downtime or startup process. Daylight saving time changes have no
-effect.
+effect as all calculations are done using UTC.
 .SH COPYRIGHT
 Copyright \(co 2009\-2010 EPIPE Communications. All rights reserved.
 .PP

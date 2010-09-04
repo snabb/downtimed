@@ -69,6 +69,7 @@
 #include <paths.h>
 #include <signal.h>
 #include <stdarg.h>
+#include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -79,14 +80,11 @@
 #define  SYSLOG_NAMES
 #include <syslog.h>
 
+#include "downtimedb.h"
+
 /* Some global defines */
 
-/* PACKAGE_NAME is defined by autoconf, if used. */
-#ifdef PACKAGE_NAME
-#define	PROGNAME PACKAGE_NAME
-#else 
 #define	PROGNAME "downtimed"
-#endif
 
 /* PACKAGE_VERSION is defined by autoconf, if used. */
 #ifdef PACKAGE_VERSION
@@ -123,6 +121,7 @@
 
 int		main(int, char *[]);
 static time_t	getboottime(void);
+static void	updatedowntimedb(time_t, int, time_t);
 static void	report(void);
 static char *	prettytime(time_t);
 static void	sighandler(int);
@@ -140,9 +139,11 @@ static void	removepidfile(void);
 
 char *	cf_log = "daemon";  /* syslog facility or filename with a slash (/) */
 char *	cf_pidfile = _PATH_VARRUN PROGNAME ".pid";
-char *	cf_datadir = _PATH_VARDB PROGNAME;
+char *	cf_datadir = _PATH_VARDB "downtimed";
 long	cf_sleep = 5;                   /* update time stamp every 5 seconds */
-int	cf_fsync = 1;         /* if true, fsync() stamp files after touching */
+int	cf_fsync = 1;	      /* if true, fsync() stamp files after touching */
+int	cf_downtimedb = 1;		       /* if true, update downtimedb */
+char *	cf_downtimedbfile = PATH_DOWNTIMEDBFILE;
 
 /* Logging destination, determined from cf_log */
 
@@ -160,7 +161,7 @@ time_t	boottime = 0;
 time_t	starttime = 0;
 
 /* 
- * downtimed: system downwtime reporting daemon.
+ * downtimed: system downwtime monitoring and reporting daemon.
  *
  * This daemon sits in the background, periodically updating a time stamp
  * on the disk. If the daemon is killed with a signal associated with a 
@@ -176,7 +177,7 @@ main(int argc, char *argv[])
 	struct stat sb;
 	time_t uptime;
 
-	/* record startup time for later use */
+	/* record daemon startup time for later use */
 	starttime = time((time_t *)NULL);
 
 	/* parse command line arguments */
@@ -203,9 +204,9 @@ main(int argc, char *argv[])
 	}
 
 	/* set time stamp file names */
-	if (asprintf(&ts_stamp, "%s/%s.stamp", cf_datadir, PROGNAME) < 0 || 
-	    asprintf(&ts_shutdown, "%s/%s.shutdown", cf_datadir, PROGNAME) < 0
-	    || asprintf(&ts_boot, "%s/%s.boot", cf_datadir, PROGNAME) < 0) {
+	if (asprintf(&ts_stamp, "%s/downtimed.stamp", cf_datadir) < 0 || 
+	    asprintf(&ts_shutdown, "%s/downtimed.shutdown", cf_datadir) < 0
+	    || asprintf(&ts_boot, "%s/downtimed.boot", cf_datadir) < 0) {
 		logwr(LOG_CRIT, "asprintf failed, out of memory?");
 		errx(EX_OSERR, "asprintf failed, out of memory?");
 	}
@@ -248,13 +249,21 @@ main(int argc, char *argv[])
 		}
 	}
 
-	/* record normal shutdown */
+	/* 
+	 * Record normal shutdown. If using syslog for logging, this 
+	 * might fail because syslogd may have exited already.
+	 */
 	uptime = time((time_t *)NULL) - boottime;
 	logwr(LOG_NOTICE, "shutting down, uptime %s (%d seconds)",
 	    prettytime(uptime), uptime);
 
 	touch(ts_stamp, 0);
 	touch(ts_shutdown, 0);
+
+	/* We could write the downtime database shutdown record here 
+	 * in case of graceful shutdown, but we have chosen to update 
+	 * it consistently only at the program start.
+	 */
 
 	logdeinit();
 	removepidfile();
@@ -314,6 +323,45 @@ getboottime()
 	return (starttime);	/* give up */
 }
 
+/* Update downtime database */
+
+void
+updatedowntimedb(time_t up, int crashed, time_t down)
+{
+	struct downtimedb dbent;
+	int fd;
+
+	if ((fd = open(cf_downtimedbfile, O_WRONLY | O_CREAT | O_APPEND,
+	    DEFFILEMODE)) < 0) {
+		logwr(LOG_ERR, "can not open %s: %s", cf_downtimedbfile,
+		    strerror(errno));
+		return;
+	}
+
+	/* ensure that padding bytes are zero */
+	memset(&dbent, 0, sizeof(struct downtimedb));
+
+	dbent.what = crashed ? 
+	    DOWNTIMEDB_WHAT_CRASH : DOWNTIMEDB_WHAT_SHUTDOWN;
+	dbent.when = (uint64_t) down;
+
+	if (downtimedb_write(fd, &dbent) < 0)
+		logwr(LOG_ERR, "can not write to %s: %s", cf_downtimedbfile,
+		    strerror(errno));
+
+	/* ensure again that padding bytes are zero */
+	memset(&dbent, 0, sizeof(struct downtimedb));
+
+	dbent.what = DOWNTIMEDB_WHAT_UP;
+	dbent.when = (uint64_t) up;
+
+	if (downtimedb_write(fd, &dbent) < 0)
+		logwr(LOG_ERR, "can not write to %s: %s", cf_downtimedbfile,
+		    strerror(errno));
+
+	close(fd);
+}
+
 /* Report the downtime and shutdown reason when starting up */
 
 static void
@@ -365,8 +413,14 @@ report()
 		logwr(LOG_NOTICE, "restarted, system was not down");
 		return;
 	}
+
 	logwr(LOG_NOTICE, "started %d seconds after boot", 
 	    starttime - boottime);
+
+	if (cf_downtimedb)
+		updatedowntimedb(boottime, have_shutdown,
+		    (have_shutdown ? 
+		    sb_shutdown.st_mtime : sb_stamp.st_mtime));
 
 	if (have_shutdown) {
 		if (strftime(timestr, sizeof(timestr), "%F %T", 
@@ -468,7 +522,8 @@ touch(const char *fn, time_t t)
 		} else
 			fsync(fd);
 
-		close(fd);
+		if (close(fd) < 0)
+			logwr(LOG_ERR, "%s: %s", fn, strerror(errno));
 	} else {
 		/* not doing fsync(), no need to open file */
 		if (utimes(fn, t == 0 ? (struct timeval *)NULL : tv) < 0)
@@ -572,7 +627,7 @@ static void
 usage()
 {
 
-	fputs("usage: " PROGNAME " [-vS] [-d datadir] [-l log] [-p pidfile] "
+	fputs("usage: " PROGNAME " [-DvS] [-d datadir] [-l log] [-p pidfile] "
 	    "[-s sleep]\n", stderr);
 	exit(EX_USAGE);
 }
@@ -597,6 +652,7 @@ version()
 	printf("  log = %s\n", cf_log);
 	printf("  pidfile = %s\n", cf_pidfile);
 	printf("  datadir = %s\n", cf_datadir);
+	printf("  downtimedbfile = %s\n", cf_downtimedbfile);
 	printf("  sleep = %ld\n", cf_sleep);
 	printf("  fsync = %d\n", cf_fsync);
 
@@ -615,8 +671,11 @@ parseargs(int argc, char *argv[])
 	int c;
 	char *p;
 
-	while ((c = getopt(argc, argv, "d:l:p:s:Svh?")) != -1) {
+	while ((c = getopt(argc, argv, "Dd:l:p:s:Svh?")) != -1) {
 		switch (c) {
+		case 'D':
+			cf_downtimedb = 0;
+			break;
 		case 'd':
 			cf_datadir = optarg;
 			break;

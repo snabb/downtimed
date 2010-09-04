@@ -1,5 +1,5 @@
-downtimed - system downtime reporting daemon
-============================================
+downtimed - system downtime monitoring and reporting daemon
+===========================================================
 
 Copyright (c) 2009-2010 EPIPE Communications. All rights reserved.
 
@@ -8,9 +8,11 @@ License which is also known as the Simplified BSD License. You should have
 received a copy of that license along with this software.
 
 Software web site:
+
   http://dist.epipe.com/downtimed/
 
 Author's contact address for reporting bugs, sending contributions etc:
+
   opensource@epipe.com
 
 
@@ -46,7 +48,7 @@ physical non-virtual machine would turn off the VPS to do some system
 administration tasks on the host operating system, which the author did
 not have access to. The author wanted to have some sort of record of when,
 why and how long the VPS had been down. The standard FreeBSD system did
-not provide such facility.
+not provide such a facility.
 
 After some looking around it seemed that there was only programs for
 monitoring uptime but not downtime. Also most of these programs were
@@ -89,9 +91,9 @@ which is tailored to your specific operating system.
 If one does not exist or if you yourself are making such a port or a
 package, the basic GNU autotools based installation should be as follows:
 
-./configure
-make
-make install
+  ./configure
+  make
+  make install
 
 The above does NOT install any startup scripts which are REQUIRED for
 proper function of downtimed. See the following chapter.
@@ -116,9 +118,10 @@ Usage documentation
 
 Have a look at downtimed(8) manual page:
 
-man downtimed
+  man downtimed
 
 Alternatively you can find a PDF version of the manual page at:
+
   http://dist.epipe.com/downtimed/
 
 
