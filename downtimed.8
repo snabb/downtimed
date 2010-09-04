@@ -1,0 +1,156 @@
+.\"-
+.\" Copyright (c) 2009-2010 EPIPE Communications. All rights reserved.
+.\" 
+.\" Redistribution and use in source and binary forms, with or without
+.\" modification, are permitted provided that the following conditions
+.\" are met:
+.\" 1. Redistributions of source code must retain the above copyright
+.\"    notice, this list of conditions and the following disclaimer.
+.\" 2. Redistributions in binary form must reproduce the above copyright
+.\"    notice, this list of conditions and the following disclaimer in the
+.\"    documentation and/or other materials provided with the distribution.
+.\"
+.\" THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+.\" ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+.\" IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+.\" ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+.\" FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+.\" DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+.\" OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+.\" HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+.\" LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+.\" OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+.\" SUCH DAMAGE.
+.\" 
+.\" The views and conclusions contained in the software and documentation are 
+.\" those of the authors and should not be interpreted as representing official 
+.\" policies, either expressed or implied, of EPIPE Communications.
+.\"
+.TH DOWNTIMED 8 "2010-05-21" "version 0.1"
+.SH NAME
+downtimed \- system downtime reporting daemon
+.SH SYNOPSIS
+.B downtimed
+[
+.B \-d 
+.I datadir
+] [
+.B \-l 
+.I log
+] [
+.B \-p 
+.I pidfile
+] [
+.B \-S
+] [
+.B \-s 
+.I sleep
+] [
+.B \-v
+]
+.SH DESCRIPTION
+The
+.B downtimed
+daemon waits in the background, frequently updating a time stamp file
+on the disk. If the daemon is killed with a signal associated with a 
+normal system shutdown procedure, it will record the shutdown time on 
+the disk. 
+.PP
+When the daemon is restarted during the next boot process,
+it will report how long the system was down and whether it was properly
+shut down or crashed. The downtime report is output to the system log 
+or to a specified log file.
+.SH OPTIONS
+.TP
+.B \-d \fIdatadir\fR
+The directory where the time stamp files are located. If the directory 
+does not exist, it is created at startup. The default data directory
+is determined at compile time.
+.TP
+.B \-l \fIlog\fR
+Logging destination. If the argument contains a slash (/) it is interpreted
+to be a path name to a log file, which will be created if it does not exist
+already. Otherwise it is interpreted as a syslog facility name. The
+default logging destination is "daemon" which means that the messages
+are written to syslog with the daemon facility code.
+.TP
+.B \-p \fIpidfile\fR
+The location of the file which keeps track of the process ID of the
+running daemon process. The system default location is determined at 
+compile time.
+.TP
+.B \-S
+Disable 
+.BR fsync (2) 
+after each update of the time stamp. This reduces
+the load on the disk system, but makes the downtime measurement less 
+reliable.
+.TP
+.B \-s \fIsleep\fR
+Defines how long to sleep between each update of the on\-disk time
+stamp file. More frequent updates result in more accurate downtime
+reporting in the case of a system crash. Less frequent updates decrease
+the amount of disk writes performed. The default is to sleep 5 seconds
+between eacch update. If you are using a flash memory based SSD or other 
+disk which has limited amount of write cycles per block, it might be a
+good idea to set the sleep time to a higher value to prolong the
+lifetime of the storage device.
+.TP
+.B \-v
+Display the program version number, copyright message and the default
+settings.
+.SH SIGNALS
+.TP
+.B SIGHUP
+Close and re-open the output log. Use in case you want to rotate
+the log file.
+.TP
+.B SIGTERM and SIGINT
+Terminate gracefully. These signals signify that a graceful system
+shutdown is in process.
+.SH EXIT STATUS
+The daemon exits 0 on success, and >0 if an error occurs.
+.SH SEE ALSO
+.BR syslog.conf (5), 
+http://dist.epipe.com/downtimed/
+.SH BUGS
+The reporting accuracy in case of a system crash depends on how often the 
+time stamp is updated. 
+.PP
+Finding out the system startup time is very operating system specific. 
+If the program does not have specific code to support your operating 
+system, it assumes that the system started when the daemon started.
+.PP
+Reporting is inaccurate if the system clock changes during system 
+downtime or startup process. Daylight saving time changes have no
+effect.
+.SH COPYRIGHT
+Copyright \(co 2009\-2010 EPIPE Communications. All rights reserved.
+.PP
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions
+are met:
+.PP
+1. Redistributions of source code must retain the above copyright
+notice, this list of conditions and the following disclaimer.
+.PP
+2. Redistributions in binary form must reproduce the above copyright
+notice, this list of conditions and the following disclaimer in the
+documentation and/or other materials provided with the distribution.
+.PP
+THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+SUCH DAMAGE.
+.PP
+The views and conclusions contained in the software and documentation are 
+those of the authors and should not be interpreted as representing official 
+policies, either expressed or implied, of EPIPE Communications.
+.\" eof

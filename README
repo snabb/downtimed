@@ -1,0 +1,125 @@
+downtimed - system downtime reporting daemon
+============================================
+
+Copyright (c) 2009-2010 EPIPE Communications. All rights reserved.
+
+This software is licensed under the terms and conditions of the FreeBSD
+License which is also known as the Simplified BSD License. You should have 
+received a copy of that license along with this software.
+
+Software web site:
+  http://dist.epipe.com/downtimed/
+
+Author's contact address for reporting bugs, sending contributions etc:
+  opensource@epipe.com
+
+
+Portability
+===========
+
+Currently supported operating systems:
+ - Recent versions of FreeBSD
+ - Modern GNU/Linux distributions
+
+The software probably works on other modern *BSD variants with zero or
+little modifications.
+
+The only really non-portable part of the program is the getboottime()
+function which uses an operating system specific interface for finding
+the exact moment when the kernel started again. The function can be
+easily altered to add support for additional operating systems. The
+author would appreciate receiving any such patches to be integrated in
+the main distribution.
+
+Also for the sake of convenience the program uses some functions which
+are available only in modern operating systems. These include for example
+asprintf(3), vasprintf(3), snprintf(3), err(3), errx(3), futimes(2)
+and facilitynames in syslog.h.
+
+
+History
+=======
+
+The author of this software had a Xen based virtual private server
+(VPS) running FreeBSD operating system. Occasionally the owner of the
+physical non-virtual machine would turn off the VPS to do some system
+administration tasks on the host operating system, which the author did
+not have access to. The author wanted to have some sort of record of when,
+why and how long the VPS had been down. The standard FreeBSD system did
+not provide such facility.
+
+After some looking around it seemed that there was only programs for
+monitoring uptime but not downtime. Also most of these programs were
+complicated and were intended to be run on a remote host and thus they
+would be actually monitoring the system availability through the network
+instead of the actual downtime of the FreeBSD operating system running
+on the VPS. Also they would require an another server for monitoring
+the primary server.
+
+Therefore downtimed was needed.
+
+
+Features
+========
+
+downtimed was made to monitor operating system downtime, shutdowns and
+crashes on the monitored host itself and to record any findings either
+to the system log or to a separately specified log file.
+
+downtimed is a daemon process which is intended to be started
+automatically every time when the operating system starts. At the start
+the daemon logs its findings about the previous downtime to the specified
+logging destination (which can be easily further parsed for example with a
+perl script to produce statistics of total downtime within a time period).
+
+Thereafter the downtimed daemon just keeps waiting in the background
+and periodically updates a time stamp file on the disk. The time stamp
+is used to determine the approximate time when the system was last up
+and running. In case of a graceful system shutdown it records a stamp
+to another file on the disk. These files are used for reporting the next
+time the daemon starts.
+
+
+Installation
+============
+
+Installation should be preferably done through a port or a package
+which is tailored to your specific operating system.
+
+If one does not exist or if you yourself are making such a port or a
+package, the basic GNU autotools based installation should be as follows:
+
+./configure
+make
+make install
+
+The above does NOT install any startup scripts which are REQUIRED for
+proper function of downtimed. See the following chapter.
+
+
+Startup scripts
+===============
+
+It seems that every different operating system has invented their own
+ways of starting system daemons during the boot process. That is a major
+pain in the ass.
+
+The downtimed package does not include operating system specific startup
+scripts for any other systems except for FreeBSD. It is assumed that
+system administrators or port maintainers will implement the required
+startup scripts. Sample startup script for FreeBSD is included in
+freebsd-startup.sh. It is not installed by default.
+
+
+Usage documentation
+===================
+
+Have a look at downtimed(8) manual page:
+
+man downtimed
+
+Alternatively you can find a PDF version of the manual page at:
+  http://dist.epipe.com/downtimed/
+
+
+/* eof */
