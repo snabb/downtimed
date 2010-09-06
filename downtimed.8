@@ -89,8 +89,9 @@ The daemon exits 0 on success, and >0 if an error occurs.
 .BR downtime (1), 
 .BR downtimes (1), 
 .BR syslog.conf (5), 
-.if !d pdfhref \
+.ie !d pdfhref \
 http://dist.epipe.com/downtimed/
+.el \
 .pdfhref W http://dist.epipe.com/downtimed/
 .SH BUGS
 The reporting accuracy in case of a system crash depends on how often the 
