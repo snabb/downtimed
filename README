@@ -102,15 +102,20 @@ proper function of downtimed. See the following chapter.
 Startup scripts
 ===============
 
-It seems that every different operating system has invented their own
-ways of starting system daemons during the boot process. That is a major
-pain in the ass.
+It seems that every different operating system and distribution has
+invented their own ways of starting system daemons during the boot
+process. That is a major pain in the ass.
 
 The downtimed package does not include operating system specific startup
-scripts for any other systems except for FreeBSD. It is assumed that
-system administrators or port maintainers will implement the required
-startup scripts. Sample startup script for FreeBSD is included in
-freebsd-startup.sh. It is not installed by default.
+scripts for any other systems except for FreeBSD and upstart. It is
+assumed that system administrators or port maintainers will implement
+the required startup scripts. Sample startup script for FreeBSD is
+included in freebsd-startup.sh and sample startup script for Linux
+distributions using upstart(8) to bring up system daemons is included
+in upstart-startup.conf. They are not installed by default.
+
+This program is not really useful unless there is a proper startup
+script in place.
 
 
 Usage documentation
