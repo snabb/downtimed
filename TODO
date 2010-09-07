@@ -1,3 +1,4 @@
 - check time calculation types
 - check printf strings vs types
 - check that close error value is taken in account
+- update README and others for downtimes command

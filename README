@@ -125,7 +125,11 @@ Have a look at downtimed(8) manual page:
 
   man downtimed
 
-Alternatively you can find a PDF version of the manual page at:
+... as well as the downtimes(1) manual page:
+
+  man downtimes
+
+Alternatively you can find a PDF version of the manual pages at:
 
   http://dist.epipe.com/downtimed/
 
