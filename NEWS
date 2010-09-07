@@ -9,6 +9,9 @@ version 0.2 released 2010-XX-XX
 
  - implemented downtime database in the downtimed(8) daemon
 
+ - moved the location of data files from /var/lib/misc/downtimed/
+   to /var/lib/downtimed/ on Linux.
+
  - minor documentation improvements
 
 version 0.1 released 2010-05-22
