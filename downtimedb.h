@@ -34,14 +34,6 @@
  *   opensource@epipe.com
  */
 
-/* We expect the following preprocessor macros to be defined: */
-
-/* from <paths.h> */
-
-#ifndef _PATH_VARDB
-#error _PATH_VARDB is not defined
-#endif
-
 /*
  * The structure of the downtime database file.
  *
@@ -69,7 +61,11 @@ struct downtimedb {
 #define	DOWNTIMEDB_WHAT_SHUTDOWN	2
 #define	DOWNTIMEDB_WHAT_CRASH		3
 
-#define PATH_DOWNTIMEDBFILE	(_PATH_VARDB "downtimed/downtimedb");
+#ifdef __linux__
+#define PATH_DOWNTIMEDBFILE	"/var/lib/downtimed/downtimedb"
+#else
+#define PATH_DOWNTIMEDBFILE	(_PATH_VARDB "downtimed/downtimedb")
+#endif
 
 /* Function prototypes */
 

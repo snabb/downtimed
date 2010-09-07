@@ -101,10 +101,6 @@
 #error _PATH_VARRUN is not defined
 #endif
 
-#ifndef _PATH_VARDB
-#error _PATH_VARDB is not defined
-#endif
-
 /* from <sys/stat.h> */
 
 #ifndef ACCESSPERMS
@@ -139,7 +135,11 @@ static void	removepidfile(void);
 
 char *	cf_log = "daemon";  /* syslog facility or filename with a slash (/) */
 char *	cf_pidfile = _PATH_VARRUN PROGNAME ".pid";
+#ifdef __linux__
+char *	cf_datadir = "/var/lib/downtimed";
+#else
 char *	cf_datadir = _PATH_VARDB "downtimed";
+#endif
 long	cf_sleep = 5;                   /* update time stamp every 5 seconds */
 int	cf_fsync = 1;	      /* if true, fsync() stamp files after touching */
 int	cf_downtimedb = 1;		       /* if true, update downtimedb */
