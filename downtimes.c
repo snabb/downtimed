@@ -74,9 +74,7 @@
 /* Function prototypes */
 
 int		main(int, char *[]);
-static char *	timestr(time_t);
 static void	report(int64_t, int, int64_t);
-static char *	prettytime(time_t);
 static void	version(void);
 static void	usage(void);
 static void	parseargs(int, char *[]);
@@ -155,66 +153,19 @@ main(int argc, char *argv[])
 	exit(EX_OK);
 }
 
-char *
-timestr(time_t t)
-{
-	static char str[100];
-	struct tm *lt;
-
-	if (t != 0) {
-		if ((lt = localtime(&t)) == NULL)
-			goto err;
-		if (strftime(str, sizeof(str), "%F %T", lt) == 0)
-			goto err;
-
-		return (str);
-	}
-err:
-	/* we have the backslashes here to avoid interpretation as trigraphs */
-	return ("?\?\?\?-?\?-?\? ?\?:?\?:?\?");
-}
-
 /* Output one line of downtime report */
 
 static void
 report(int64_t td, int crashed, int64_t tu)
 {
-	printf("%s %s -> ", crashed ? "crash" : "down ", timestr((time_t) td));
-	printf("up %s ", timestr((time_t) tu));
+	printf("%s %s -> ", crashed ? "crash" : "down ", timestr_abs((time_t) td));
+	printf("up %s ", timestr_abs((time_t) tu));
 
 	if (tu != 0 && td != 0)
 		printf("= %s (%Ld s)\n", 
-		    prettytime((time_t)(tu - td)), tu - td);
+		    timestr_int((time_t)(tu - td)), tu - td);
 	else
 		printf("= unknown (? s)\n");
-}
-
-/* Stolen from top.c */
-
-char *
-prettytime(time_t t)
-{
-	int days, hrs, mins, secs;
-	static char str[100];
-
-#if 0
-	t += 30;	/* WHY ? XXX */
-#endif
-	days = t / 86400;
-	t %= 86400;
-	hrs = t / 3600;
-	t %= 3600;
-	mins = t / 60;
-	secs = t % 60;
-
-	if (days > 0)
-		snprintf(str, sizeof(str), "%d+%02d:%02d:%02d", 
-		    days, hrs, mins, secs);
-	else
-		snprintf(str, sizeof(str), "%02d:%02d:%02d", 
-		    hrs, mins, secs);
-
-	return (str);
 }
 
 /* Usage help & exit */

@@ -69,7 +69,9 @@ struct downtimedb {
 
 /* Function prototypes */
 
-int downtimedb_read(int, struct downtimedb *);
-int downtimedb_write(int, struct downtimedb *);
+int	downtimedb_read(int, struct downtimedb *);
+int	downtimedb_write(int, struct downtimedb *);
+char *	timestr_abs(time_t);
+char *	timestr_int(time_t);
 
 /* eof */

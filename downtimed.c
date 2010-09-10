@@ -119,7 +119,6 @@ int		main(int, char *[]);
 static time_t	getboottime(void);
 static void	updatedowntimedb(time_t, int, time_t);
 static void	report(void);
-static char *	prettytime(time_t);
 static void	sighandler(int);
 static void	touch(const char *, time_t);
 static void	loginit(void);
@@ -255,7 +254,7 @@ main(int argc, char *argv[])
 	 */
 	uptime = time((time_t *)NULL) - boottime;
 	logwr(LOG_NOTICE, "shutting down, uptime %s (%d seconds)",
-	    prettytime(uptime), uptime);
+	    timestr_int(uptime), uptime);
 
 	touch(ts_stamp, 0);
 	touch(ts_shutdown, 0);
@@ -367,7 +366,6 @@ updatedowntimedb(time_t up, int crashed, time_t down)
 static void
 report()
 {
-	char timestr[100];
 	struct stat sb_stamp, sb_shutdown, sb_oldboot;
 	int have_stamp = 0, have_shutdown = 0, have_oldboot = 0;
 	time_t olduptime, downtime;
@@ -423,63 +421,18 @@ report()
 		    sb_shutdown.st_mtime : sb_stamp.st_mtime));
 
 	if (have_shutdown) {
-		if (strftime(timestr, sizeof(timestr), "%F %T", 
-		    localtime(&sb_shutdown.st_mtime)) > 0)
-			logwr(LOG_NOTICE, "system shutdown at %s", timestr);
+		logwr(LOG_NOTICE, "system shutdown at %s", 
+		    timestr_abs(sb_shutdown.st_mtime));
 	} else {
-		if (strftime(timestr, sizeof(timestr), "%F %T", 
-		    localtime(&sb_stamp.st_mtime)) > 0)
-			logwr(LOG_NOTICE, "system crashed at %s", timestr);
+		logwr(LOG_NOTICE, "system crashed at %s", 
+		    timestr_abs(sb_stamp.st_mtime));
 	}
 
 	logwr(LOG_NOTICE, "previous uptime was %s (%d seconds)", 
-	    prettytime(olduptime), olduptime);
+	    timestr_int(olduptime), olduptime);
 
 	logwr(LOG_NOTICE, "downtime was %s (%d seconds)", 
-	    prettytime(downtime), downtime);
-}
-
-/* 
- * Pretty-print time_t the same way as uptime command does. Returns a 
- * pointer to a static string buffer which is overwritten on each call 
- * (definitely not thread-safe).
- */
-
-char *
-prettytime(time_t t)
-{
-	static char str[100], str2[100];
-	int days, hrs, mins, secs;
-
-	/* if (t > 60) // this is in BSD w.c, why?
-	 * t += 30; 
-	 */
-
-	days = t / 86400;
-	t %= 86400;
-	hrs = t / 3600;
-	t %= 3600;
-	mins = t / 60;
-	secs = t % 60;
-
-	if (hrs > 0 && mins > 0)
-		snprintf(str, sizeof(str), "%2d:%02d", hrs, mins);
-	else if (hrs > 0)
-		snprintf(str, sizeof(str), "%d hr%s", hrs, hrs > 1 ? "s" : "");
-	else if (mins > 0)
-		snprintf(str, sizeof(str), "%d min%s", mins, 
-		    mins > 1 ? "s" : "");
-	else
-		snprintf(str, sizeof(str), "%d sec%s", secs, 
-		    secs > 1 ? "s" : "");
-
-	if (days > 0) {
-		snprintf(str2, sizeof(str2), "%d day%s, %s", days, 
-		    days > 1 ? "s" : "", str);
-		return (str2);
-	} else {
-		return (str);
-	}
+	    timestr_int(downtime), downtime);
 }
 
 /* Handle signals */
@@ -578,9 +531,7 @@ logdeinit()
 static void
 logwr(int pri, const char *fmt, ...) 
 {
-	char *str, *str2, timestr[100];
-	struct tm *lt;
-	time_t timenow;
+	char *str, *str2;
 
 	va_list ap;
 
@@ -589,16 +540,11 @@ logwr(int pri, const char *fmt, ...)
 	if (cf_logfd < 0) {
 		vsyslog(pri, fmt, ap);
 	} else {
-		timenow = time((time_t *)NULL);
-		lt = localtime(&timenow);
-
-		if (strftime(timestr, sizeof(timestr), "%F %T", lt) == 0)
-			goto err;
-
 		if (vasprintf(&str, fmt, ap) < 0)
 			goto err;
 
-		if (asprintf(&str2, "%s: %s\n", timestr, str) < 0) {
+		if (asprintf(&str2, "%s: %s\n", 
+		    timestr_abs(time((time_t *) NULL)), str) < 0) {
 			free(str);
 			goto err;
 		}

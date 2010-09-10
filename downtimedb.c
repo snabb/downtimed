@@ -58,6 +58,8 @@
 #include <errno.h>
 #include <paths.h>
 #include <stdint.h>
+#include <stdio.h>
+#include <time.h>
 #include <unistd.h>
 
 #include "downtimedb.h"
@@ -73,11 +75,17 @@ downtimedb_read(int fd, struct downtimedb *buf)
 
 	errno = 0;
 	if ((ret = read(fd, (void *)buf, sizeof(struct downtimedb))) < 
-	    sizeof(struct downtimedb))
+	    sizeof(struct downtimedb)) {
 		if (ret == 0)
 			return 0;	/* eof */
-		else
+		else {
+			if (ret != -1) {
+				/* set errno when it is not a read error */
+				errno = EILSEQ;
+			}
 			return -1;	/* some sort of error */
+		}
+	}
 
 	buf->when = (int64_t) be64toh((uint64_t) buf->when);
 
@@ -100,6 +108,58 @@ downtimedb_write(int fd, struct downtimedb *buf)
 		return -1;
 
 	return 0;
+}
+
+/*
+ * Return time string of absolute time in static buffer.
+ * Certainly not thread-safe.
+ */
+
+char *
+timestr_abs(time_t t)
+{
+	static char str[100];
+	struct tm *lt;
+
+	if (t != 0) {
+		if ((lt = localtime(&t)) == NULL)
+			goto err;
+		if (strftime(str, sizeof(str), "%F %T", lt) == 0)
+			goto err;
+
+		return (str);
+	}
+err:
+	/* we have the backslashes here to avoid interpretation as trigraphs */
+	return ("?\?\?\?-?\?-?\? ?\?:?\?:?\?");
+}
+
+/*
+ * Stolen from top.c. Return time interval in human-readable (?) static
+ * string. Definitely not thread-safe.
+ */
+
+char *
+timestr_int(time_t t)
+{
+	int days, hrs, mins, secs;
+	static char str[100];
+
+	days = t / 86400;
+	t %= 86400;
+	hrs = t / 3600;
+	t %= 3600;
+	mins = t / 60;
+	secs = t % 60;
+
+	if (days > 0)
+		snprintf(str, sizeof(str), "%d+%02d:%02d:%02d", 
+		    days, hrs, mins, secs);
+	else
+		snprintf(str, sizeof(str), "%02d:%02d:%02d", 
+		    hrs, mins, secs);
+
+	return (str);
 }
 
 /* eof */
