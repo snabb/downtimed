@@ -158,7 +158,9 @@ main(int argc, char *argv[])
 static void
 report(int64_t td, int crashed, int64_t tu)
 {
-	printf("%s %s -> ", crashed ? "crash" : "down ", timestr_abs((time_t) td));
+	printf("%s %s -> ", crashed ? "crash" : "down ", 
+	    timestr_abs((time_t) td));
+
 	printf("up %s ", timestr_abs((time_t) tu));
 
 	if (tu != 0 && td != 0)
