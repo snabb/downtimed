@@ -416,7 +416,7 @@ report()
 	    starttime - boottime);
 
 	if (cf_downtimedb)
-		updatedowntimedb(boottime, have_shutdown,
+		updatedowntimedb(boottime, !have_shutdown,
 		    (have_shutdown ?
 		    sb_shutdown.st_mtime : sb_stamp.st_mtime));
 
