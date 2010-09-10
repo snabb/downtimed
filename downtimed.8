@@ -23,13 +23,13 @@ downtimed \- system downtime monitoring and reporting daemon
 The
 .B downtimed
 daemon waits in the background, frequently updating a time stamp file
-on the disk. If the daemon is killed with a signal associated with a 
-normal system shutdown procedure, it will record the shutdown time on 
-the disk. 
+on the disk. If the daemon is killed with a signal associated with a
+normal system shutdown procedure, it will record the shutdown time on
+the disk.
 .PP
 When the daemon is restarted during the next boot process,
 it will report how long the system was down and whether it was properly
-shut down or crashed. The downtime report is output to the system log 
+shut down or crashed. The downtime report is output to the system log
 or to a specified log file. Also a record is appended to the downtime
 database.
 .SH OPTIONS
@@ -38,7 +38,7 @@ database.
 Do not create nor update the downtime database.
 .TP
 .B \-d \fIdatadir\fR
-The directory where the time stamp files are located. If the directory 
+The directory where the time stamp files are located. If the directory
 does not exist, it is created at startup. The default data directory
 is determined at compile time.
 .TP
@@ -51,14 +51,14 @@ are written to syslog with the daemon facility code.
 .TP
 .B \-p \fIpidfile\fR
 The location of the file which keeps track of the process ID of the
-running daemon process. The system default location is determined at 
+running daemon process. The system default location is determined at
 compile time.
 .TP
 .B \-S
-Disable 
-.BR fsync (2) 
+Disable
+.BR fsync (2)
 after each update of the time stamp. This reduces
-the load on the disk system, but makes the downtime measurement less 
+the load on the disk system, but makes the downtime measurement less
 reliable.
 .TP
 .B \-s \fIsleep\fR
@@ -66,7 +66,7 @@ Defines how long to sleep between each update of the on\-disk time
 stamp file. More frequent updates result in more accurate downtime
 reporting in the case of a system crash. Less frequent updates decrease
 the amount of disk writes performed. The default is to sleep 5 seconds
-between eacch update. If you are using a flash memory based SSD or other 
+between eacch update. If you are using a flash memory based SSD or other
 disk which has limited amount of write cycles per block, it might be a
 good idea to set the sleep time to a higher value to prolong the
 lifetime of the storage device.
@@ -86,22 +86,22 @@ shutdown is in process.
 .SH EXIT STATUS
 The daemon exits 0 on success, and >0 if an error occurs.
 .SH SEE ALSO
-.BR downtime (1), 
-.BR downtimes (1), 
-.BR syslog.conf (5), 
+.BR downtime (1),
+.BR downtimes (1),
+.BR syslog.conf (5),
 .ie !d pdfhref \
 http://dist.epipe.com/downtimed/
 .el \
 .pdfhref W http://dist.epipe.com/downtimed/
 .SH BUGS
-The reporting accuracy in case of a system crash depends on how often the 
-time stamp is updated. 
+The reporting accuracy in case of a system crash depends on how often the
+time stamp is updated.
 .PP
-Finding out the system startup time is very operating system specific. 
-If the program does not have specific code to support your operating 
+Finding out the system startup time is very operating system specific.
+If the program does not have specific code to support your operating
 system, it assumes that the system started when the daemon started.
 .PP
-Reporting is inaccurate if the system clock changes during system 
+Reporting is inaccurate if the system clock changes during system
 downtime or startup process. Daylight saving time changes have no
 effect as all calculations are done using UTC.
 .SH COPYRIGHT
@@ -130,7 +130,7 @@ LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
 OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
 SUCH DAMAGE.
 .PP
-The views and conclusions contained in the software and documentation are 
-those of the authors and should not be interpreted as representing official 
+The views and conclusions contained in the software and documentation are
+those of the authors and should not be interpreted as representing official
 policies, either expressed or implied, of EPIPE Communications.
 .\" eof

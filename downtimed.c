@@ -21,9 +21,9 @@
  * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
  * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
  * SUCH DAMAGE.
- * 
- * The views and conclusions contained in the software and documentation are 
- * those of the authors and should not be interpreted as representing official 
+ *
+ * The views and conclusions contained in the software and documentation are
+ * those of the authors and should not be interpreted as representing official
  * policies, either expressed or implied, of EPIPE Communications.
  *
  *
@@ -34,8 +34,8 @@
  *   opensource@epipe.com
  */
 
-/* 
- * _GNU_SOURCE is required to enable in asprintf() and vasprintf() 
+/*
+ * _GNU_SOURCE is required to enable in asprintf() and vasprintf()
  * in <stdio.h> on GNU/Linux.
  *
  * _BSD_SOURCE is required to enable BSD style signal(3) facility
@@ -159,13 +159,13 @@ char *	ts_boot = NULL;
 time_t	boottime = 0;
 time_t	starttime = 0;
 
-/* 
+/*
  * downtimed: system downwtime monitoring and reporting daemon.
  *
  * This daemon sits in the background, periodically updating a time stamp
- * on the disk. If the daemon is killed with a signal associated with a 
- * normal system shutdown procedure, it will record the shutdown time on 
- * the disk. When the daemon is restarted during the next boot process, 
+ * on the disk. If the daemon is killed with a signal associated with a
+ * normal system shutdown procedure, it will record the shutdown time on
+ * the disk. When the daemon is restarted during the next boot process,
  * it will report how long the system was down and whether it was properly
  * shut down or crashed.
  */
@@ -197,13 +197,13 @@ main(int argc, char *argv[])
 		if (mkdir(cf_datadir, ACCESSPERMS) < 0) {
 			logwr(LOG_CRIT, "can not create data directory %s: %s",
 			    cf_datadir, strerror(errno));
-			err(EX_CANTCREAT, "can not create data directory %s", 
+			err(EX_CANTCREAT, "can not create data directory %s",
 			    cf_datadir);
 		}
 	}
 
 	/* set time stamp file names */
-	if (asprintf(&ts_stamp, "%s/downtimed.stamp", cf_datadir) < 0 || 
+	if (asprintf(&ts_stamp, "%s/downtimed.stamp", cf_datadir) < 0 ||
 	    asprintf(&ts_shutdown, "%s/downtimed.shutdown", cf_datadir) < 0
 	    || asprintf(&ts_boot, "%s/downtimed.boot", cf_datadir) < 0) {
 		logwr(LOG_CRIT, "asprintf failed, out of memory?");
@@ -233,9 +233,9 @@ main(int argc, char *argv[])
 	/* touch system boot time */
 	touch(ts_boot, boottime);
 
-	/* 
-	 * main loop: run until we receive a signal or system dies, 
-         * touching the time stamp file regularly 
+	/*
+	 * main loop: run until we receive a signal or system dies,
+         * touching the time stamp file regularly
 	 */
 	while (exiting == 0) {
 		touch(ts_stamp, 0);
@@ -248,8 +248,8 @@ main(int argc, char *argv[])
 		}
 	}
 
-	/* 
-	 * Record normal shutdown. If using syslog for logging, this 
+	/*
+	 * Record normal shutdown. If using syslog for logging, this
 	 * might fail because syslogd may have exited already.
 	 */
 	uptime = time((time_t *)NULL) - boottime;
@@ -259,8 +259,8 @@ main(int argc, char *argv[])
 	touch(ts_stamp, 0);
 	touch(ts_shutdown, 0);
 
-	/* We could write the downtime database shutdown record here 
-	 * in case of graceful shutdown, but we have chosen to update 
+	/* We could write the downtime database shutdown record here
+	 * in case of graceful shutdown, but we have chosen to update
 	 * it consistently only at the program start.
 	 */
 
@@ -276,8 +276,8 @@ static time_t
 getboottime()
 {
 #if defined(__FreeBSD__) || defined(__NetBSD__) || defined(__DragonFly__)
-	/* 
-	 * BSDish systems have the boot time available through sysctl. 
+	/*
+	 * BSDish systems have the boot time available through sysctl.
 	 */
 	int mib[2];
 	struct timeval bt;
@@ -287,12 +287,12 @@ getboottime()
 	mib[1] = KERN_BOOTTIME;
 	btsize = sizeof(bt);
 
-	if (sysctl(mib, 2, &bt, &btsize, (void *)NULL, 0) != -1 && 
+	if (sysctl(mib, 2, &bt, &btsize, (void *)NULL, 0) != -1 &&
 	    bt.tv_sec != 0)
 		return (bt.tv_sec);
 
 #elif defined(__linux__)
-	/* 
+	/*
 	 * Linux systems have the boot time available through /proc filesystem.
 	 */
 	char str[1024];
@@ -302,7 +302,7 @@ getboottime()
 	if ((fp = fopen("/proc/stat", "r")) != NULL) {
 		while (fgets(str, sizeof(str), fp) != NULL)
 			if (strncmp(str, "btime ", 6) == 0)
-				if (sscanf(str, "btime %lu", &bt) == 1 && 
+				if (sscanf(str, "btime %lu", &bt) == 1 &&
 				    bt != 0) {
 					fclose(fp);
 					return (bt);
@@ -310,13 +310,13 @@ getboottime()
 		fclose(fp);
 	}
 #endif
-	/* 
-	 * We fall through here if we do not have OS specific code 
+	/*
+	 * We fall through here if we do not have OS specific code
 	 * implemented or if the OS specific code fails.
-	 * 
-	 * The logic could be improved to stat() some files which are 
+	 *
+	 * The logic could be improved to stat() some files which are
 	 * accessed or modified early at system startup (for example the
-	 * system log, dmesg.boot, kernel, utmp, etc.) XXX 
+	 * system log, dmesg.boot, kernel, utmp, etc.) XXX
 	 */
 
 	return (starttime);	/* give up */
@@ -340,7 +340,7 @@ updatedowntimedb(time_t up, int crashed, time_t down)
 	/* ensure that padding bytes are zero */
 	memset(&dbent, 0, sizeof(struct downtimedb));
 
-	dbent.what = crashed ? 
+	dbent.what = crashed ?
 	    DOWNTIMEDB_WHAT_CRASH : DOWNTIMEDB_WHAT_SHUTDOWN;
 	dbent.when = (uint64_t) down;
 
@@ -392,46 +392,46 @@ report()
 		logwr(LOG_ERR, "no old boot-time stamp (%s)", ts_boot);
 		return;
 	}
-	if (have_stamp && have_shutdown && 
+	if (have_stamp && have_shutdown &&
 	    sb_shutdown.st_mtime < sb_stamp.st_mtime)
 		have_shutdown = 0;
-  
-	olduptime = 
-	    (have_shutdown ? sb_shutdown.st_mtime : sb_stamp.st_mtime) - 
+
+	olduptime =
+	    (have_shutdown ? sb_shutdown.st_mtime : sb_stamp.st_mtime) -
 	    sb_oldboot.st_mtime;
 
-	downtime = boottime - 
+	downtime = boottime -
 	    (have_shutdown ? sb_shutdown.st_mtime : sb_stamp.st_mtime);
 
 	if (downtime < 0) {
-		/* 
-		 * This happens if we quit and re-start the process (we 
-		 * normally only exit when system goes down. 
+		/*
+		 * This happens if we quit and re-start the process (we
+		 * normally only exit when system goes down.
 		 */
 		logwr(LOG_NOTICE, "restarted, system was not down");
 		return;
 	}
 
-	logwr(LOG_NOTICE, "started %d seconds after boot", 
+	logwr(LOG_NOTICE, "started %d seconds after boot",
 	    starttime - boottime);
 
 	if (cf_downtimedb)
 		updatedowntimedb(boottime, have_shutdown,
-		    (have_shutdown ? 
+		    (have_shutdown ?
 		    sb_shutdown.st_mtime : sb_stamp.st_mtime));
 
 	if (have_shutdown) {
-		logwr(LOG_NOTICE, "system shutdown at %s", 
+		logwr(LOG_NOTICE, "system shutdown at %s",
 		    timestr_abs(sb_shutdown.st_mtime));
 	} else {
-		logwr(LOG_NOTICE, "system crashed at %s", 
+		logwr(LOG_NOTICE, "system crashed at %s",
 		    timestr_abs(sb_stamp.st_mtime));
 	}
 
-	logwr(LOG_NOTICE, "previous uptime was %s (%d seconds)", 
+	logwr(LOG_NOTICE, "previous uptime was %s (%d seconds)",
 	    timestr_int(olduptime), olduptime);
 
-	logwr(LOG_NOTICE, "downtime was %s (%d seconds)", 
+	logwr(LOG_NOTICE, "downtime was %s (%d seconds)",
 	    timestr_int(downtime), downtime);
 }
 
@@ -465,7 +465,7 @@ touch(const char *fn, time_t t)
 
 	if (cf_fsync) {
 		/* we need to open the file so that we can do fsync() to it */
-		if ((fd = open(fn, O_WRONLY | O_CREAT | O_TRUNC, 
+		if ((fd = open(fn, O_WRONLY | O_CREAT | O_TRUNC,
 		    DEFFILEMODE)) < 0) {
 			logwr(LOG_ERR, "%s: %s", fn, strerror(errno));
 			return;
@@ -494,19 +494,19 @@ loginit()
 	if (strchr(cf_log, '/') == NULL) {
 		/* Logging to syslog if there is no slash in the name. */
 
-		for(i = 0; facilitynames[i].c_name != NULL; i++) 
+		for(i = 0; facilitynames[i].c_name != NULL; i++)
 			if (strcmp(facilitynames[i].c_name, cf_log) == 0)
 			    cf_logfacility = facilitynames[i].c_val;
 
 		if (cf_logfacility == 0)
-			errx(EX_USAGE, 
+			errx(EX_USAGE,
 			    "-l argument is not syslog facility or file path");
 
 		openlog(PROGNAME, LOG_PID, cf_logfacility);
 	} else {
 		/* We are logging to a file. */
 
-		if ((cf_logfd = open(cf_log, O_WRONLY | O_APPEND | O_CREAT, 
+		if ((cf_logfd = open(cf_log, O_WRONLY | O_APPEND | O_CREAT,
 		    DEFFILEMODE)) < 0)
 			err(EX_CANTCREAT, "%s", cf_log);
 	}
@@ -529,7 +529,7 @@ logdeinit()
 /* Log a message */
 
 static void
-logwr(int pri, const char *fmt, ...) 
+logwr(int pri, const char *fmt, ...)
 {
 	char *str, *str2;
 
@@ -543,7 +543,7 @@ logwr(int pri, const char *fmt, ...)
 		if (vasprintf(&str, fmt, ap) < 0)
 			goto err;
 
-		if (asprintf(&str2, "%s: %s\n", 
+		if (asprintf(&str2, "%s: %s\n",
 		    timestr_abs(time((time_t *) NULL)), str) < 0) {
 			free(str);
 			goto err;
@@ -556,7 +556,7 @@ logwr(int pri, const char *fmt, ...)
 		 * can not log the error. Even if logging fails, it still
 		 * makes sense to keep running and updating timestamps.
 		 */
-		if (write(cf_logfd, str2, strlen(str2)) < 0) 
+		if (write(cf_logfd, str2, strlen(str2)) < 0)
 			/* do nothing but keep compiler happy */
 			;
 
@@ -657,12 +657,12 @@ parseargs(int argc, char *argv[])
 		usage();
 }
 
-/* 
+/*
  * Create a pid file, return -1 on error. This is loosely based on
  * FreeBSD flopen.c.
  */
 
-static int 
+static int
 makepidfile()
 {
 	char str[100];
@@ -671,15 +671,15 @@ makepidfile()
 
 retry:
 	if ((fd = open(cf_pidfile, O_WRONLY | O_CREAT, DEFFILEMODE)) < 0) {
-		logwr(LOG_ERR, "can not open pid file %s: %s", 
+		logwr(LOG_ERR, "can not open pid file %s: %s",
 		    cf_pidfile, strerror(errno));
 		return (-1);
 	}
 	if (flock(fd, LOCK_EX | LOCK_NB) < 0) {
-		if (errno == EWOULDBLOCK) 
+		if (errno == EWOULDBLOCK)
 			logwr(LOG_ERR, "another process is running already");
 		else
-			logwr(LOG_ERR, "can not flock pid file %s: %s", 
+			logwr(LOG_ERR, "can not flock pid file %s: %s",
 			    cf_pidfile, strerror(errno));
 		close(fd);
 		return (-1);
@@ -691,7 +691,7 @@ retry:
 	}
 	if (fstat(fd, &sb2) < 0) {
 		/* can not happen :) */
-		logwr(LOG_ERR, "can not fstat pid file %s: %s", 
+		logwr(LOG_ERR, "can not fstat pid file %s: %s",
 		    cf_pidfile, strerror(errno));
 		close(fd);
 		return (-1);
@@ -703,22 +703,22 @@ retry:
 	}
 	if (ftruncate(fd, 0) < 0) {
 		/* should not happen */
-		logwr(LOG_ERR, "can not ftruncate pid file %s: %s", 
+		logwr(LOG_ERR, "can not ftruncate pid file %s: %s",
 			cf_pidfile, strerror(errno));
 		close(fd);
 		return (-1);
 	}
 	snprintf(str, sizeof(str), "%d\n", getpid());
 	if (write(fd, str, strlen(str)) != strlen(str)) {
-		logwr(LOG_ERR, "can not write pid file %s: %s", 
+		logwr(LOG_ERR, "can not write pid file %s: %s",
 		    cf_pidfile, strerror(errno));
 		close(fd);
 		return (-1);
 	}
 
-	/* 
-	 * NOTE: we leave the file open (although we can not access the 
-	 * file descriptor any more) so that we can retain the lock as 
+	/*
+	 * NOTE: we leave the file open (although we can not access the
+	 * file descriptor any more) so that we can retain the lock as
 	 * long as the process is alive.
 	 */
 
@@ -727,14 +727,14 @@ retry:
 
 /* Remove pid file */
 
-static void 
+static void
 removepidfile()
 {
 
-	/* 
+	/*
 	 * We are not releasing the lock. We still have an open
-	 * file descriptor to the unlink()ed file, but that is sorted 
-	 * out when we exit shortly after calling this function. 
+	 * file descriptor to the unlink()ed file, but that is sorted
+	 * out when we exit shortly after calling this function.
 	 */
 
 	unlink(cf_pidfile);

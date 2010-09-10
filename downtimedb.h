@@ -21,9 +21,9 @@
  * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
  * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
  * SUCH DAMAGE.
- * 
- * The views and conclusions contained in the software and documentation are 
- * those of the authors and should not be interpreted as representing official 
+ *
+ * The views and conclusions contained in the software and documentation are
+ * those of the authors and should not be interpreted as representing official
  * policies, either expressed or implied, of EPIPE Communications.
  *
  *
@@ -39,14 +39,14 @@
  *
  * This should provide a Y2K38 bug, 64 bit and endianness safe file format.
  * We need a portable format, because everything in the system could
- * change during the downtime. Someone could change the machine from 
+ * change during the downtime. Someone could change the machine from
  * big-endian 32 bit architecture to 64 bit little-endian computer.
  * Or someone might want to transfer the database from one computer to
  * another for further analysis. It would also be possible to transmit
  * the data in the same format to a remote collector through a network
  * socket.
  *
- * At the time when 128 bit computers are introduced, possibly some pack 
+ * At the time when 128 bit computers are introduced, possibly some pack
  * #pragmas or similar should be inserted here to retain compatibility. XXX
  */
 

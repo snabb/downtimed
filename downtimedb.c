@@ -21,9 +21,9 @@
  * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
  * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
  * SUCH DAMAGE.
- * 
- * The views and conclusions contained in the software and documentation are 
- * those of the authors and should not be interpreted as representing official 
+ *
+ * The views and conclusions contained in the software and documentation are
+ * those of the authors and should not be interpreted as representing official
  * policies, either expressed or implied, of EPIPE Communications.
  *
  *
@@ -74,7 +74,7 @@ downtimedb_read(int fd, struct downtimedb *buf)
 	int ret;
 
 	errno = 0;
-	if ((ret = read(fd, (void *)buf, sizeof(struct downtimedb))) < 
+	if ((ret = read(fd, (void *)buf, sizeof(struct downtimedb))) <
 	    sizeof(struct downtimedb)) {
 		if (ret == 0)
 			return 0;	/* eof */
@@ -153,10 +153,10 @@ timestr_int(time_t t)
 	secs = t % 60;
 
 	if (days > 0)
-		snprintf(str, sizeof(str), "%d+%02d:%02d:%02d", 
+		snprintf(str, sizeof(str), "%d+%02d:%02d:%02d",
 		    days, hrs, mins, secs);
 	else
-		snprintf(str, sizeof(str), "%02d:%02d:%02d", 
+		snprintf(str, sizeof(str), "%02d:%02d:%02d",
 		    hrs, mins, secs);
 
 	return (str);

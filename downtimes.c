@@ -21,9 +21,9 @@
  * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
  * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
  * SUCH DAMAGE.
- * 
- * The views and conclusions contained in the software and documentation are 
- * those of the authors and should not be interpreted as representing official 
+ *
+ * The views and conclusions contained in the software and documentation are
+ * those of the authors and should not be interpreted as representing official
  * policies, either expressed or implied, of EPIPE Communications.
  *
  *
@@ -85,7 +85,7 @@ long	cf_sleep = 0;         /* adjust crash time according to sleep value */
 char *	cf_downtimedbfile = PATH_DOWNTIMEDBFILE;
 long	cf_n = -1;                 /* number of downtime records to display */
 
-/* 
+/*
  * downtimes: display system downtime records made by downtimed(8)
  */
 
@@ -133,7 +133,7 @@ main(int argc, char *argv[])
 			crashed = 1;
 			break;
 		case DOWNTIMEDB_WHAT_UP:
-			report(crashed ? tdown + tadjust : tdown, 
+			report(crashed ? tdown + tadjust : tdown,
 			    crashed, dbent.when);
 			tdown = 0;
 			break;
@@ -162,7 +162,7 @@ report(int64_t td, int crashed, int64_t tu)
 	printf("up %s ", timestr_abs((time_t) tu));
 
 	if (tu != 0 && td != 0)
-		printf("= %s (%Ld s)\n", 
+		printf("= %s (%Ld s)\n",
 		    timestr_int((time_t)(tu - td)), tu - td);
 	else
 		printf("= unknown (? s)\n");
