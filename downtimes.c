@@ -163,11 +163,13 @@ report(int64_t td, int crashed, int64_t tu)
 
 	printf("up %s ", timestr_abs((time_t) tu));
 
+	/* timestr_int() returns string such as 21+06:11:38 or 06:11:38 */
+
 	if (tu != 0 && td != 0)
-		printf("= %s (%Ld s)\n",
+		printf("= %11s (%Ld s)\n",
 		    timestr_int((time_t)(tu - td)), tu - td);
 	else
-		printf("= unknown (? s)\n");
+		printf("= %11s (? s)\n", "unknown");
 }
 
 /* Usage help & exit */
