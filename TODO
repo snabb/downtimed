@@ -1,6 +1,5 @@
 - check time calculation types
 - check printf strings vs types
 - check that close error value is taken in account
-- update README and others for downtimes command
 - try to gather more information about reason of crash/shutdown
 - statistics reporting (per month, per year?)
