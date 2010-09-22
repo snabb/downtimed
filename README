@@ -1,10 +1,10 @@
-downtimed - system downtime monitoring and reporting daemon
-===========================================================
+downtimed - system downtime monitoring and reporting tool
+=========================================================
 
 Copyright (c) 2009-2010 EPIPE Communications. All rights reserved.
 
 This software is licensed under the terms and conditions of the FreeBSD
-License which is also known as the Simplified BSD License. You should have 
+License which is also known as the Simplified BSD License. You should have
 received a copy of that license along with this software.
 
 Software web site:
@@ -15,7 +15,11 @@ Development version is available at Launchpad:
 
   https://launchpad.net/downtimed
 
-Author's contact address for reporting bugs, sending contributions etc:
+Main development branch of downtimed is available with Bazaar VCS:
+
+  bzr branch lp:downtimed
+
+Author's e-mail address for reporting bugs, sending contributions etc:
 
   opensource@epipe.com
 
@@ -69,21 +73,23 @@ Features
 ========
 
 downtimed was made to monitor operating system downtime, shutdowns and
-crashes on the monitored host itself and to record any findings either
-to the system log or to a separately specified log file.
+crashes on the monitored host itself and to keep a record of such events.
 
-downtimed is a daemon process which is intended to be started
-automatically every time when the operating system starts. At the start
-the daemon logs its findings about the previous downtime to the specified
-logging destination (which can be easily further parsed for example with a
-perl script to produce statistics of total downtime within a time period).
+downtimed(8) is a daemon process which is intended to be started
+automatically from system boot scripts every time when the operating
+system of a server starts. First the daemon logs its findings about the
+previous downtime to a specified logging destination as well as in a
+database file which can be displayed with downtimes(1) command.
 
-Thereafter the downtimed daemon just keeps waiting in the background
+Thereafter the downtimed(8) daemon just keeps waiting in the background
 and periodically updates a time stamp file on the disk. The time stamp
 is used to determine the approximate time when the system was last up
 and running. In case of a graceful system shutdown it records a stamp
 to another file on the disk. These files are used for reporting the next
 time the daemon starts.
+
+downtimes(1) is a command-line tool which can be used to inspect previous
+downtime records recorded in the downtime database file.
 
 
 Installation
@@ -110,11 +116,11 @@ It seems that every different operating system and distribution has
 invented their own ways of starting system daemons during the boot
 process. That is a major pain in the ass.
 
-The downtimed package does not include operating system specific startup
-scripts for any other systems except for FreeBSD and upstart. It is
-assumed that system administrators or port maintainers will implement
-the required startup scripts. Sample startup script for FreeBSD is
-included in freebsd-startup.sh and sample startup script for Linux
+The downtimed distribution does not include operating system specific
+startup scripts for any other systems except for FreeBSD and upstart. It
+is assumed that system administrators or port/package maintainers will
+implement the required startup scripts. Sample startup script for FreeBSD
+is included in freebsd-startup.sh and sample startup script for Linux
 distributions using upstart(8) to bring up system daemons is included
 in upstart-startup.conf. They are not installed by default.
 
@@ -137,5 +143,13 @@ Alternatively you can find a PDF version of the manual pages at:
 
   http://dist.epipe.com/downtimed/
 
+
+Contributions
+=============
+
+If you port this software to a new operating system, find bugs or
+implement new features, it would be nice if you could send your patches
+to the author either through Launchpad or by e-mail. See the top of this
+document for contact information.
 
 /* eof */
