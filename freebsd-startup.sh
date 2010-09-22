@@ -1,29 +1,35 @@
 #!/bin/sh
+# $FreeBSD$
 
 # PROVIDE: downtimed
 # REQUIRE: LOGIN syslogd
 # KEYWORD: shutdown
 
-# This file should be installed as /usr/local/etc/rc.d/downtimed.
+# This file should be installed as /usr/local/etc/rc.d/downtimed
 #
-# Add the following lines to /etc/rc.conf to enable `downtimed':
+# Define downtimed_* variables in one of these files:
+#	/etc/rc.conf
+#	/etc/rc.conf.local
+#	/etc/rc.conf.d/downtimed
 #
-# downtimed_enable="YES"
-# downtimed_flags="<set as needed>"
+# Add the following line to enable:
+#	downtimed_enable="YES"
 #
-# See downtimed(8) for possible downtimed_flags
+# Add the following line to change the default options, see downtimed(8):
+#	downtimed_flags="<set as needed>"
 #
+# DO NOT CHANGE THE DEFAULT VALUES BELOW
 
-. "/etc/rc.subr"
+. /etc/rc.subr
 
 name="downtimed"
 rcvar=`set_rcvar`
 
-command="/usr/local/sbin/$name"
-pidfile="/var/run/$name.pid"
+command="/usr/local/sbin/${name}"
+pidfile="/var/run/${name}.pid"
 
-# read configuration and set defaults
 load_rc_config "$name"
+
 : ${downtimed_enable="NO"}
 : ${downtimed_flags=""}
 
