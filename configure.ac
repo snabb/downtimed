@@ -13,7 +13,7 @@ AC_INIT([downtimed],[0.1],[opensource@epipe.com],[],[http://dist.epipe.com/downt
 AC_CONFIG_SRCDIR([downtimed.c])
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_AUX_DIR([build-aux])
-AM_INIT_AUTOMAKE([foreign dist-bzip2])
+AM_INIT_AUTOMAKE([foreign dist-xz])
             
 AC_PROG_CC
 AC_LANG([C])
