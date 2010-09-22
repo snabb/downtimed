@@ -4,8 +4,8 @@
 
 version 0.2 released 2010-XX-XX
 
- - implemented downtimes(1) and downtime(1) commands for displaying
-   the contents of the downtime database in human readable format
+ - implemented downtimes(1) command for displaying the contents of
+   the downtime database in human readable format
 
  - implemented downtime database in the downtimed(8) daemon
 

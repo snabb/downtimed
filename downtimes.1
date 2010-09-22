@@ -14,14 +14,14 @@ downtimes \- display system downtime records made by
 .OP \-d downtimedbfile
 .OP \-n num
 .OP \-s sleep
-.SY downtime
-.OP \-d downtimedbfile
-.OP \-n num
-.OP \-s sleep
+.\".SY downtime
+.\".OP \-d downtimedbfile
+.\".OP \-n num
+.\".OP \-s sleep
 .SY downtimes
 .B \-v
-.SY downtime
-.B \-v
+.\".SY downtime
+.\".B \-v
 .YS
 .SH DESCRIPTION
 The
@@ -30,22 +30,23 @@ command displays the contents of the downtime database in human readable
 format. The downtime database is maintained by
 .BR downtimed (8).
 .PP
-The singular form
-.B downtime
-displays only details about the last time the system was down where
-as the plural form
-.B downtimes
-displays all the records in the database. The
+.\"The singular form
+.\".B downtime
+.\"displays only details about the last time the system was down where
+.\"as the plural form
+.\".B downtimes
+.\"displays all the records in the database.
+The
 .B \-n
-option can be used instead to specify arbitrary number of downtime
-records to output.
+option can be used to specify the number of downtime
+records to display.
 .SH OPTIONS
 .TP
 .B \-d \fIdowntimedbfile\fR
 Use the specified downtime database file instead of the system default.
 .TP
 .B \-n \fInum\fR
-Define how many latest downtime records to output.
+Define how many latest downtime records to output. Default is all.
 .TP
 .B \-s \fIsleep\fR
 Calculate the approximate crash time by specifying what was the
