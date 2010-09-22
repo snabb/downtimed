@@ -12,6 +12,9 @@ version 0.2 released 2010-XX-XX
  - moved the location of data files from /var/lib/misc/downtimed/
    to /var/lib/downtimed/ on Linux.
 
+ - the default sleep time between time stamp updates is now 15 seconds
+   instead of 5 as previously
+
  - minor documentation improvements
 
 version 0.1 released 2010-05-22

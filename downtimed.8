@@ -5,7 +5,7 @@
 .\" License which is also known as the Simplified BSD License. You should have
 .\" received a copy of that license along with this software.
 .\"
-.TH DOWNTIMED 8 "2010-05-29" "version 0.2"
+.TH DOWNTIMED 8 "2010-09-22" "version 0.2"
 .SH NAME
 downtimed \- system downtime monitoring and reporting daemon
 .SH SYNOPSIS
@@ -65,7 +65,7 @@ reliable.
 Defines how long to sleep between each update of the on\-disk time
 stamp file. More frequent updates result in more accurate downtime
 reporting in the case of a system crash. Less frequent updates decrease
-the amount of disk writes performed. The default is to sleep 5 seconds
+the amount of disk writes performed. The default is to sleep 15 seconds
 between eacch update. If you are using a flash memory based SSD or other
 disk which has limited amount of write cycles per block, it might be a
 good idea to set the sleep time to a higher value to prolong the

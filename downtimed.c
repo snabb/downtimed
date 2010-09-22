@@ -139,7 +139,7 @@ char *	cf_datadir = "/var/lib/downtimed";
 #else
 char *	cf_datadir = _PATH_VARDB "downtimed";
 #endif
-long	cf_sleep = 5;                   /* update time stamp every 5 seconds */
+long	cf_sleep = 15;                 /* update time stamp every 15 seconds */
 int	cf_fsync = 1;	      /* if true, fsync() stamp files after touching */
 int	cf_downtimedb = 1;		       /* if true, update downtimedb */
 char *	cf_downtimedbfile = PATH_DOWNTIMEDBFILE;
