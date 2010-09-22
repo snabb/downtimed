@@ -100,8 +100,10 @@ main(int argc, char *argv[])
 	/* parse command line arguments */
 	parseargs(argc, argv);
 
-	if ((fd = open(cf_downtimedbfile, O_RDONLY)) < 0)
+	if ((fd = open(cf_downtimedbfile, O_RDONLY)) < 0) {
+		fputs("Maybe the system has not been down yet?\n", stderr);
 		err(EX_NOINPUT, "can not open %s", cf_downtimedbfile);
+	}
 
 	if (fstat(fd, &sb) < 0)
 		err(EX_NOINPUT, "can not stat %s", cf_downtimedbfile);
