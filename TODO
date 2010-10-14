@@ -3,3 +3,5 @@
 - check that close error value is taken in account
 - try to gather more information about reason of crash/shutdown
 - statistics reporting (per month, per year?)
+- date/time range selection for reports
+- total downtime within reporting period
