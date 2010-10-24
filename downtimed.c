@@ -160,7 +160,7 @@ time_t	boottime = 0;
 time_t	starttime = 0;
 
 /*
- * downtimed: system downwtime monitoring and reporting daemon.
+ * downtimed: system downtime monitoring and reporting daemon.
  *
  * This daemon sits in the background, periodically updating a time stamp
  * on the disk. If the daemon is killed with a signal associated with a
