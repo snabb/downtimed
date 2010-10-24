@@ -42,6 +42,12 @@
 #define _BSD_SOURCE
 #endif
 
+#ifdef __APPLE__
+#include <libkern/OSByteOrder.h>
+#define be64toh(x) OSSwapBigToHostInt64(x)
+#define htobe64(x) OSSwapHostToBigInt64(x)
+#endif
+
 /* Include config.h in case we use autoconf. */
 
 #ifdef HAVE_CONFIG_H

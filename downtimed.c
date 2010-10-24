@@ -210,11 +210,13 @@ main(int argc, char *argv[])
 		errx(EX_OSERR, "asprintf failed, out of memory?");
 	}
 
+#ifndef __APPLE__  /* under Mac OS X, use launchd(8) */
 	/* run as daemon (fork and detach from controlling tty) */
 	if (daemon(0, 0) < 0) {
 		logwr(LOG_CRIT, "starting daemon failed: %s", strerror(errno));
 		err(EX_OSERR, "starting daemon failed");
 	}
+#endif
 
 	/* create pid file */
 	if (makepidfile() < 0) {
@@ -275,7 +277,7 @@ main(int argc, char *argv[])
 static time_t
 getboottime()
 {
-#if defined(__FreeBSD__) || defined(__NetBSD__) || defined(__DragonFly__)
+#if defined(__FreeBSD__) || defined(__NetBSD__) || defined(__DragonFly__) || defined(__APPLE__)
 	/*
 	 * BSDish systems have the boot time available through sysctl.
 	 */
