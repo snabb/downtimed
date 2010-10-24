@@ -162,4 +162,16 @@ implement new features, it would be nice if you could send your patches
 to the author either through Launchpad or by e-mail. See the top of this
 document for contact information.
 
+
+Acknowledgements
+================
+
+The following people have contributed patches or other improvements to
+this sofware:
+
+Henrik Ahlgren <pablo@seestieto.com>
+ - Mac OS X patches
+
+Thank you!
+
 /* eof */

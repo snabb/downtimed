@@ -2,6 +2,10 @@
 
                            version history
 
+version 0.3 released 2010-XX-XX
+
+ - Mac OS X support by Henrik Ahlgren <pablo@seestieto.com>
+
 version 0.2 released 2010-09-22
 
  - implemented downtimes(1) command for displaying the contents of
