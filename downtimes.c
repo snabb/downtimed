@@ -49,8 +49,8 @@
 
 #include <err.h>
 #include <errno.h>
+#include <inttypes.h>
 #include <paths.h>
-#include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -168,7 +168,7 @@ report(int64_t td, int crashed, int64_t tu)
 	/* timestr_int() returns string such as 21+06:11:38 or 06:11:38 */
 
 	if (tu != 0 && td != 0)
-		printf("= %11s (%Ld s)\n",
+		printf("= %11s (%"PRIu64" s)\n",
 		    timestr_int((time_t)(tu - td)), tu - td);
 	else
 		printf("= %11s (? s)\n", "unknown");
