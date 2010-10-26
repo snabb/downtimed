@@ -15,8 +15,9 @@ AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_AUX_DIR([build-aux])
 AM_INIT_AUTOMAKE([foreign dist-xz])
             
-AC_PROG_CC
 AC_LANG([C])
+AC_PROG_CC
+AC_PROG_CC_C99
 AM_PROG_CC_C_O
 
 AC_PROG_INSTALL
