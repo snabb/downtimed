@@ -2,9 +2,15 @@
 
                            version history
 
-version 0.3 released 2010-XX-XX
+version 0.3 released 2010-10-26
 
  - Mac OS X support by Henrik Ahlgren <pablo@seestieto.com>
+
+ - Fix man page rendering on various OSes such as FreeBSD (we were
+   using non-standard .SY, .YS and .OP macros) [this has no
+   effect on GNU/Linux, no need to upgrade]
+
+ - Fix printf format string to avoid compiler warnings
 
 version 0.2 released 2010-09-22
 
