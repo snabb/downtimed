@@ -5,24 +5,32 @@
 .\" License which is also known as the Simplified BSD License. You should have
 .\" received a copy of that license along with this software.
 .\"
-.TH DOWNTIMES 1 "2010-09-22" "version 0.2"
+.TH DOWNTIMES 1 "2010-10-26" "version 0.2"
 .SH NAME
 downtimes \- display system downtime records made by
 .BR downtimed (8)
 .SH SYNOPSIS
-.SY downtimes
-.OP \-d downtimedbfile
-.OP \-n num
-.OP \-s sleep
-.\".SY downtime
-.\".OP \-d downtimedbfile
-.\".OP \-n num
-.\".OP \-s sleep
-.SY downtimes
+.B downtimes
+.RB [\| \-d
+.IR downtimedbfile \|]
+.RB [\| \-n
+.IR num \|]
+.RB [\| \-s
+.IR sleep \|]
+.br
+.\".B downtime
+.\".RB [\| \-d
+.\".IR downtimedbfile \|]
+.\".RB [\| \-n
+.\".IR num \|]
+.\".RB [\| \-s
+.\".IR sleep \|]
+.\".br
+.B downtimes
 .B \-v
-.\".SY downtime
+.\".br
+.\".B downtime
 .\".B \-v
-.YS
 .SH DESCRIPTION
 The
 .B downtimes
