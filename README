@@ -117,17 +117,18 @@ It seems that every different operating system and distribution has
 invented their own ways of starting system daemons during the boot
 process. That is a major pain in the ass.
 
-The downtimed distribution does not include operating system specific
-startup scripts for any other systems except for FreeBSD, upstart and
-launchd. It is assumed that system administrators or port/package
-maintainers will implement the required startup scripts.
+The downtimed distribution includes operating system specific startup
+scripts for FreeBSD, upstart and launchd. They are located in the
+"startup-scripts" directory. It is assumed that system administrators
+or port/package maintainers will implement and configure the required
+startup scripts.
 
 Sample startup script for FreeBSD is included in freebsd-startup.sh.
 It should be installed as /usr/local/etc/rc.d/downtimed.
 
-A startup script for Linux distributions using upstart(8) to bring
-up system daemons is included in upstart-startup.conf. It should be
-installed as /etc/init/downtimed.conf.
+A startup script for GNU/Linux distributions using upstart(8) to bring
+up system daemons, such as the Ubuntu distribution, is included in
+upstart-startup.conf. It should be installed as /etc/init/downtimed.conf.
 
 Mac OS X/Darwin launchd(8) configuration file com.epipe.downtimed.plist is
 also included. This file should be installed to /Library/LaunchDaemons.
