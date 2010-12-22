@@ -87,19 +87,19 @@ downtimedb_read(int fd, struct downtimedb *buf)
 	if ((ret = read(fd, (void *)buf, sizeof(struct downtimedb))) <
 	    sizeof(struct downtimedb)) {
 		if (ret == 0)
-			return 0;	/* eof */
+			return (0);	/* eof */
 		else {
 			if (ret != -1) {
 				/* set errno when it is not a read error */
 				errno = EILSEQ;
 			}
-			return -1;	/* some sort of error */
+			return (-1);	/* some sort of error */
 		}
 	}
 
 	buf->when = (int64_t) be64toh((uint64_t) buf->when);
 
-	return 1;	/* 1 record read */
+	return (1);	/* 1 record read */
 }
 
 /* The write function modifies the buffer on the fly to match
@@ -115,9 +115,9 @@ downtimedb_write(int fd, struct downtimedb *buf)
 	errno = 0;
 	if (write(fd, (void *)buf, sizeof(struct downtimedb)) <
 	    sizeof(struct downtimedb))
-		return -1;
+		return (-1);
 
-	return 0;
+	return (0);
 }
 
 /*
