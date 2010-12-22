@@ -2,6 +2,11 @@
 
                            version history
 
+version 0.4 released 2010-XX-XX
+
+ - OpenBSD support and other minor fixes by Mats Erik
+   Andersson <openbsd@gisladisker.se>.
+
 version 0.3 released 2010-10-26
 
  - Mac OS X support by Henrik Ahlgren <pablo@seestieto.com>
