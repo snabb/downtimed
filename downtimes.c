@@ -111,10 +111,12 @@ main(int argc, char *argv[])
 	if (sb.st_size % sizeof(struct downtimedb) != 0)
 		errx(EX_DATAERR, "%s is corrupted", cf_downtimedbfile);
 
-	if (cf_n == -1 || cf_n > sb.st_size / sizeof(struct downtimedb) / 2)
+	if ((cf_n == -1)
+		|| (cf_n > sb.st_size / sizeof(struct downtimedb) / 2))
 		cf_n = sb.st_size / sizeof(struct downtimedb) / 2;
 
-	if (lseek(fd, -(cf_n * sizeof(struct downtimedb) * 2), SEEK_END) < 0)
+	if (lseek(fd, sb.st_size - (cf_n * sizeof(struct downtimedb) * 2),
+		SEEK_SET) < 0)
 		err(EX_DATAERR, "can not seek %s", cf_downtimedbfile);
 
 	tdown = 0;
