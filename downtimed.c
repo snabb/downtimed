@@ -58,6 +58,7 @@
 #include <sys/file.h>
 #include <sys/stat.h>
 #ifdef HAVE_SYS_SYSCTL_H
+#include <sys/param.h>
 #include <sys/sysctl.h>
 #endif
 #include <sys/time.h>
@@ -277,7 +278,7 @@ main(int argc, char *argv[])
 static time_t
 getboottime()
 {
-#if defined(__FreeBSD__) || defined(__NetBSD__) || defined(__DragonFly__) || defined(__APPLE__)
+#if defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__DragonFly__) || defined(__APPLE__)
 	/*
 	 * BSDish systems have the boot time available through sysctl.
 	 */

@@ -42,6 +42,10 @@
 #define _BSD_SOURCE
 #endif
 
+#ifdef __OpenBSD__
+#define be64toh betoh64
+#endif
+
 #ifdef __APPLE__
 #include <libkern/OSByteOrder.h>
 #define be64toh(x) OSSwapBigToHostInt64(x)
@@ -54,10 +58,10 @@
 #include "config.h"
 #endif
 
+#include <sys/types.h>
 #ifdef HAVE_SYS_ENDIAN_H
 #include <sys/endian.h>
 #endif
-#include <sys/types.h>
 #ifdef HAVE_ENDIAN_H
 #include <endian.h>
 #endif
