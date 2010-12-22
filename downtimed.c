@@ -34,6 +34,12 @@
  *   opensource@epipe.com
  */
 
+/* Include config.h in case we use autoconf. */
+
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif
+
 /*
  * _GNU_SOURCE is required to enable in asprintf() and vasprintf()
  * in <stdio.h> on GNU/Linux.
@@ -45,12 +51,6 @@
 #ifdef __linux__
 #define	_GNU_SOURCE
 #define	_BSD_SOURCE
-#endif
-
-/* Include config.h in case we use autoconf. */
-
-#ifdef HAVE_CONFIG_H
-#include "config.h"
 #endif
 
 /* Standard includes that we need */

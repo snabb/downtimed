@@ -34,17 +34,24 @@
  *   opensource@epipe.com
  */
 
+/* Include config.h in case we use autoconf. */
+
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif
+
 /* _BSD_SOURCE is required to enable BSD style htobe64(3) and be64toh(3)
- * functions on GNU/Linux.
+ * functions on GNU/Linux. It probably needs to be defined before including
+ * any system headers:
  */
 
 #ifdef __linux__
 #define _BSD_SOURCE
 #endif
 
-#ifdef __OpenBSD__
-#define be64toh betoh64
-#endif
+#include <sys/types.h>
+
+/* MacOS X has it's own 64 bit byte swapping functions: */
 
 #ifdef __APPLE__
 #include <libkern/OSByteOrder.h>
@@ -52,19 +59,25 @@
 #define htobe64(x) OSSwapHostToBigInt64(x)
 #endif
 
-/* Include config.h in case we use autoconf. */
+/* This should pull in the byte swapping stuff on *BSD and Linux: */
 
-#ifdef HAVE_CONFIG_H
-#include "config.h"
-#endif
-
-#include <sys/types.h>
 #ifdef HAVE_SYS_ENDIAN_H
 #include <sys/endian.h>
 #endif
 #ifdef HAVE_ENDIAN_H
 #include <endian.h>
 #endif
+
+/* ...except on OpenBSD the name of be64toh() is different: */
+
+#ifdef __OpenBSD__
+#define be64toh(x) betoh64(x)
+#endif
+
+/* Finally now we should have working be64toh() and htobe64(). At
+ * least *BSD, GNU/Linux and MacOS X should be covered. What a mess!
+ */
+
 #include <errno.h>
 #include <inttypes.h>
 #include <paths.h>
