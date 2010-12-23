@@ -4,13 +4,18 @@
 
 version 0.4 released 2010-XX-XX
 
+ - Do not create the data directory /var/{db,lib}/downtimed in the
+   daemon. It should be created by the system administrator or the
+   package maintainer instead. Problem reported by Mats Erik Andersson
+   <openbsd@gisladisker.se>.
+
  - OpenBSD support and other minor fixes by Mats Erik
    Andersson <openbsd@gisladisker.se>.
 
  - GNU/kFreeBSD support by Mats Erik Andersson <openbsd@gisladisker.se>.
 
- - change backwards lseek(2) to forward lseek(2) as the backwards seek
-   fails on some platforms, by Mats Erik Andersson <openbsd@gisladisker.se>
+ - Change backwards lseek(2) to forward lseek(2) as the backwards seek
+   fails on some platforms, by Mats Erik Andersson <openbsd@gisladisker.se>.
 
 version 0.3 released 2010-10-26
 

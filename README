@@ -109,6 +109,23 @@ package, the basic GNU autotools based installation should be as follows:
 The above does NOT install any startup scripts which are REQUIRED for
 proper function of downtimed. See the following chapter.
 
+The program also needs a persistent data directory for the time stamp
+and the downtime database files. It should be created on *BSD and
+MacOS X as follows:
+
+  mkdir /var/db/downtimed
+
+...or on GNU/Linux or Debian GNU/kFreeBSD as follows:
+
+  mkdir /var/lib/downtimed
+
+Note that you can determine the default data directory location on
+your system by issuing "downtimed -v" command or you can specify a
+different directory with the "-d" option. Set the directory permissions
+as appropriate in your environment. If you are installing a port or
+package tailored for your system, this step is most likely taken care
+for you automatically.
+
 
 Startup scripts
 ===============

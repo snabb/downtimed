@@ -104,11 +104,6 @@
 
 /* from <sys/stat.h> */
 
-#ifndef ACCESSPERMS
-#define	ACCESSPERMS 0777
-#warn ACCESSPERMS was not defined
-#endif
-
 #ifndef DEFFILEMODE
 #define	DEFFILEMODE 0666
 #warn DEFFILEMODE was not defined
@@ -188,15 +183,11 @@ main(int argc, char *argv[])
 	/* find out system boot time */
 	boottime = getboottime();
 
-	/* create datadir if it does not exist */
-	if (stat(cf_datadir, &sb) < 0) {
-		logwr(LOG_NOTICE, "creating data directory %s", cf_datadir);
-		if (mkdir(cf_datadir, ACCESSPERMS) < 0) {
-			logwr(LOG_CRIT, "can not create data directory %s: %s",
-			    cf_datadir, strerror(errno));
-			err(EX_CANTCREAT, "can not create data directory %s",
-			    cf_datadir);
-		}
+	/* check if datadir exists */
+	if (stat(cf_datadir, &sb) < 0 || !S_ISDIR(sb.st_mode)) {
+		logwr(LOG_CRIT, "data directory %s does not exist", cf_datadir);
+		errx(EX_CANTCREAT, "data directory %s does not exist",
+		    cf_datadir);
 	}
 
 	/* set time stamp file names */
