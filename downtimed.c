@@ -135,11 +135,7 @@ static void	removepidfile(void);
 
 char *	cf_log = "daemon";  /* syslog facility or filename with a slash (/) */
 char *	cf_pidfile = _PATH_VARRUN PROGNAME ".pid";
-#ifdef __linux__
-char *	cf_datadir = "/var/lib/downtimed";
-#else
-char *	cf_datadir = _PATH_VARDB "downtimed";
-#endif
+char *	cf_datadir = PATH_DOWNTIMEDBDIR;
 long	cf_sleep = 15;                 /* update time stamp every 15 seconds */
 int	cf_fsync = 1;	      /* if true, fsync() stamp files after touching */
 int	cf_downtimedb = 1;		       /* if true, update downtimedb */
@@ -278,7 +274,9 @@ main(int argc, char *argv[])
 static time_t
 getboottime()
 {
-#if defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__DragonFly__) || defined(__APPLE__)
+#if defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) \
+    || defined(__DragonFly__) || defined(__APPLE__) \
+    || defined(__FreeBSD_kernel__)
 	/*
 	 * BSDish systems have the boot time available through sysctl.
 	 */
