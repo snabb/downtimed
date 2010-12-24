@@ -51,15 +51,7 @@
 
 #include <sys/types.h>
 
-/* MacOS X has it's own 64 bit byte swapping functions: */
-
-#ifdef __APPLE__
-#include <libkern/OSByteOrder.h>
-#define be64toh(x) OSSwapBigToHostInt64(x)
-#define htobe64(x) OSSwapHostToBigInt64(x)
-#endif
-
-/* This should pull in the byte swapping stuff on *BSD and Linux: */
+/* This should pull in the 64 bit byte swapping stuff on *BSD and Linux: */
 
 #ifdef HAVE_SYS_ENDIAN_H
 #include <sys/endian.h>
@@ -72,6 +64,14 @@
 
 #ifdef __OpenBSD__
 #define be64toh(x) betoh64(x)
+#endif
+
+/* MacOS X has it's own 64 bit byte swapping functions: */
+
+#ifdef __APPLE__
+#include <libkern/OSByteOrder.h>
+#define be64toh(x) OSSwapBigToHostInt64(x)
+#define htobe64(x) OSSwapHostToBigInt64(x)
 #endif
 
 /* Finally now we should have working be64toh() and htobe64(). At
