@@ -28,7 +28,7 @@ Portability
 ===========
 
 Currently supported operating systems:
- - Recent versions of FreeBSD
+ - Recent versions of FreeBSD and OpenBSD
  - Modern GNU/Linux distributions
  - Mac OS X/Darwin
 
@@ -191,7 +191,7 @@ Henrik Ahlgren <pablo@seestieto.com>
  - Mac OS X patches
 
 Mats Erik Andersson <openbsd@gisladisker.se>
- - OpenBSD, GNU/kFreeBSD and other patches
+ - OpenBSD, Debian GNU/kFreeBSD and other patches
 
 Thank you!
 

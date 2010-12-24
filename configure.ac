@@ -9,7 +9,7 @@
 # 
 
 AC_PREREQ(2.64)
-AC_INIT([downtimed],[0.3],[opensource@epipe.com],[],[http://dist.epipe.com/downtimed/])
+AC_INIT([downtimed],[0.4],[opensource@epipe.com],[],[http://dist.epipe.com/downtimed/])
 AC_CONFIG_SRCDIR([downtimed.c])
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_AUX_DIR([build-aux])
