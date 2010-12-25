@@ -2,7 +2,7 @@
 
                            version history
 
-version 0.4 released 2010-XX-XX
+version 0.4 released 2010-12-25
 
  - Do not create the data directory /var/{db,lib}/downtimed in the
    daemon. It should be created by the system administrator or the
