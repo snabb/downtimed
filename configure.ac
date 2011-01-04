@@ -24,7 +24,14 @@ AC_PROG_INSTALL
 AC_PROG_SED
 AC_PROG_MAKE_SET
 
-AC_CHECK_HEADERS([sys/endian.h endian.h sys/sysctl.h])
+AC_CHECK_HEADERS([sys/endian.h endian.h sys/param.h])
+
+# check sys/sysctl.h seperately, as it requires other headers on OpenBSD
+AC_CHECK_HEADERS([sys/sysctl.h], [], [],
+[[#if HAVE_SYS_PARAM_H
+#include <sys/param.h>
+#endif
+]])
 
 AC_TYPE_INT8_T
 AC_TYPE_INT16_T

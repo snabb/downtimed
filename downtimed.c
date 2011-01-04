@@ -57,8 +57,10 @@
 
 #include <sys/file.h>
 #include <sys/stat.h>
-#ifdef HAVE_SYS_SYSCTL_H
+#ifdef HAVE_SYS_PARAM_H
 #include <sys/param.h>
+#endif
+#ifdef HAVE_SYS_SYSCTL_H
 #include <sys/sysctl.h>
 #endif
 #include <sys/time.h>
