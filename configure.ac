@@ -1,7 +1,7 @@
 #
 # configure.ac
 #
-# Copyright (c) 2009-2010 EPIPE Communications. All rights reserved.
+# Copyright (c) 2009-2011 EPIPE Communications. All rights reserved.
 #
 # This software is licensed under the terms and conditions of the FreeBSD
 # License which is also known as the Simplified BSD License. You should have 
@@ -9,7 +9,7 @@
 # 
 
 AC_PREREQ(2.64)
-AC_INIT([downtimed],[0.4],[opensource@epipe.com],[],[http://dist.epipe.com/downtimed/])
+AC_INIT([downtimed],[0.5],[opensource@epipe.com],[],[http://dist.epipe.com/downtimed/])
 AC_CONFIG_SRCDIR([downtimed.c])
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_AUX_DIR([build-aux])
@@ -34,6 +34,11 @@ AC_TYPE_UINT8_T
 AC_TYPE_UINT16_T
 AC_TYPE_UINT32_T
 AC_TYPE_UINT64_T
+
+AH_TEMPLATE([sig_atomic_t], [Define to int if <signal.h> does not define.])
+AC_CHECK_TYPES([sig_atomic_t], [], [AC_DEFINE([sig_atomic_t], [int])], [
+#include <signal.h>
+])
 
 AC_CONFIG_FILES([Makefile])
 AC_OUTPUT

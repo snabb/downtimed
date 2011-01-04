@@ -1,5 +1,5 @@
 /*-
- * Copyright (c) 2009-2010 EPIPE Communications. All rights reserved.
+ * Copyright (c) 2009-2011 EPIPE Communications. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -143,13 +143,16 @@ int	cf_logfd = -1;
 
 /* Global variables */
 
-int	exiting = 0;
-int	reopenlog = 0;
 char *	ts_stamp = NULL;
 char *	ts_shutdown = NULL;
 char *	ts_boot = NULL;
 time_t	boottime = 0;
 time_t	starttime = 0;
+
+/* The following are set by the signal handler */
+
+volatile sig_atomic_t	exiting = 0;
+volatile sig_atomic_t	reopenlog = 0;
 
 /*
  * downtimed: system downtime monitoring and reporting daemon.
