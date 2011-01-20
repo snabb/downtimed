@@ -61,7 +61,7 @@
  * But the reality is that due to lack of standardization this became
  * just a big mess as there is no portable function to do this. Some
  * systems (for example RHEL/CentOS 5.5) lack the corresponding functions
- * althogether.
+ * altogether.
  *
  * Therefore we ignore whatever is available and just define our own
  * my_bswap64() function which is used on little endian architectures.
