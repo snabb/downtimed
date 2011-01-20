@@ -40,43 +40,7 @@
 #include "config.h"
 #endif
 
-/* _BSD_SOURCE is required to enable BSD style htobe64(3) and be64toh(3)
- * functions on GNU/Linux. It probably needs to be defined before including
- * any system headers:
- */
-
-#ifdef __linux__
-#define _BSD_SOURCE
-#endif
-
 #include <sys/types.h>
-
-/* This should pull in the 64 bit byte swapping stuff on *BSD and Linux: */
-
-#ifdef HAVE_SYS_ENDIAN_H
-#include <sys/endian.h>
-#endif
-#ifdef HAVE_ENDIAN_H
-#include <endian.h>
-#endif
-
-/* ...except on OpenBSD the name of be64toh() is different: */
-
-#ifdef __OpenBSD__
-#define be64toh(x) betoh64(x)
-#endif
-
-/* MacOS X has it's own 64 bit byte swapping functions: */
-
-#ifdef __APPLE__
-#include <libkern/OSByteOrder.h>
-#define be64toh(x) OSSwapBigToHostInt64(x)
-#define htobe64(x) OSSwapHostToBigInt64(x)
-#endif
-
-/* Finally now we should have working be64toh() and htobe64(). At
- * least *BSD, GNU/Linux and MacOS X should be covered. What a mess!
- */
 
 #include <errno.h>
 #include <inttypes.h>
@@ -86,6 +50,37 @@
 #include <unistd.h>
 
 #include "downtimedb.h"
+
+/*
+ * Swap bytes of uint64_t.
+ *
+ * We used to be trying to use htobe64() and be64toh().
+ * Or htobe64() and betoh64().
+ * Or OSSwapHostToBigInt64() and OSSwapBigToHostInt64().
+ *
+ * But the reality is that due to lack of standardization this became
+ * just a big mess as there is no portable function to do this. Some
+ * systems (for example RHEL/CentOS 5.5) lack the corresponding functions
+ * althogether.
+ *
+ * Therefore we ignore whatever is available and just define our own
+ * my_bswap64() function which is used on little endian architectures.
+ */
+
+#ifndef WORDS_BIGENDIAN
+static inline uint64_t
+my_bswap64(uint64_t x)
+{
+	return  ( (x << 56) & 0xff00000000000000UL ) |
+		( (x << 40) & 0x00ff000000000000UL ) |
+		( (x << 24) & 0x0000ff0000000000UL ) |
+		( (x <<  8) & 0x000000ff00000000UL ) |
+		( (x >>  8) & 0x00000000ff000000UL ) |
+		( (x >> 24) & 0x0000000000ff0000UL ) |
+		( (x >> 40) & 0x000000000000ff00UL ) |
+		( (x >> 56) & 0x00000000000000ffUL );
+}
+#endif
 
 /*
  * Functions for reading from and writing to the downtime database.
@@ -110,7 +105,9 @@ downtimedb_read(int fd, struct downtimedb *buf)
 		}
 	}
 
-	buf->when = (int64_t) be64toh((uint64_t) buf->when);
+#ifndef WORDS_BIGENDIAN
+	buf->when = (int64_t) my_bswap64((uint64_t) buf->when);
+#endif
 
 	return (1);	/* 1 record read */
 }
@@ -123,7 +120,9 @@ downtimedb_read(int fd, struct downtimedb *buf)
 int
 downtimedb_write(int fd, struct downtimedb *buf)
 {
-	buf->when = (int64_t) htobe64((uint64_t) buf->when);
+#ifndef WORDS_BIGENDIAN
+	buf->when = (int64_t) my_bswap64((uint64_t) buf->when);
+#endif
 
 	errno = 0;
 	if (write(fd, (void *)buf, sizeof(struct downtimedb)) <
