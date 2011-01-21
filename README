@@ -142,7 +142,7 @@ startup scripts.
 
 FreeBSD
 -------
-A sample startup script for FreeBSD is included in freebsd-startup.sh.
+A sample startup script for FreeBSD is included as freebsd-startup.sh.
 It should be installed as /usr/local/etc/rc.d/downtimed.
 
 Ubuntu
@@ -150,6 +150,13 @@ Ubuntu
 A startup script for GNU/Linux distributions using upstart(8) to bring
 up system daemons, such as the Ubuntu distribution, is included in
 upstart-startup.conf. It should be installed as /etc/init/downtimed.conf.
+
+openSUSE
+--------
+A startup script for openSUSE is included as opensuse-startup.sh. It
+should be installed as /etc/init.d/downtimed. Running the command
+"innserv /etc/init.d/downtimed" enables starting the service at the
+system startup.
 
 Mac OS X
 --------
@@ -199,6 +206,9 @@ Henrik Ahlgren <pablo@seestieto.com>
 
 Mats Erik Andersson <openbsd@gisladisker.se>
  - OpenBSD, Debian GNU/kFreeBSD and other patches
+
+Federico Lucifredi <flucifredi@acm.org>
+ - openSUSE startup script
 
 Thank you!
 

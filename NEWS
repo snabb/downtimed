@@ -2,6 +2,10 @@
 
                            version history
 
+version 0.5 released 2011-01-XX
+
+ - openSUSE startup script by Federico Lucifredi <flucifredi@acm.org>.
+
 version 0.4 released 2010-12-25
 
  - Do not create the data directory /var/{db,lib}/downtimed in the
