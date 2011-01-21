@@ -4,6 +4,17 @@
 
 version 0.5 released 2011-01-XX
 
+ - Remove depedency on be64toh(3) and betoh64(3). Or betoh64(3) and
+   htobe64(3). Or OSSwapBigToHostInt64(3) and OSSwapHostToBigInt64(3).
+   The code became a mess because 64 bit byte swapping is not standardized.
+
+   Also some commonly used GNU/Linux distributions such as RHEL/CentOS 5.5
+   have such an old glibc that it does not include any of these functions.
+
+   Now we just implement our own byte swapping function and ignore
+   whatever is or is not available from the system. This should improve
+   portability on many platforms.
+
  - openSUSE startup script by Federico Lucifredi <flucifredi@acm.org>.
 
 version 0.4 released 2010-12-25
