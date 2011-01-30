@@ -64,22 +64,22 @@
  * altogether.
  *
  * Therefore we ignore whatever is available and just define our own
- * my_bswap64() function which is used on little endian architectures.
+ * MY_BSWAP64() macro which is used on little endian architectures.
+ *
+ * The implementation is stolen from crypt-sha512.c released into the
+ * Public Domain by Ulrich Drepper <drepper@redhat.com>.
  */
 
 #ifndef WORDS_BIGENDIAN
-static inline uint64_t
-my_bswap64(uint64_t x)
-{
-	return  ( (x << 56) & 0xff00000000000000ULL ) |
-		( (x << 40) & 0x00ff000000000000ULL ) |
-		( (x << 24) & 0x0000ff0000000000ULL ) |
-		( (x <<  8) & 0x000000ff00000000ULL ) |
-		( (x >>  8) & 0x00000000ff000000ULL ) |
-		( (x >> 24) & 0x0000000000ff0000ULL ) |
-		( (x >> 40) & 0x000000000000ff00ULL ) |
-		( (x >> 56) & 0x00000000000000ffULL );
-}
+#define MY_BSWAP64(n)			\
+	(((n) << 56)			\
+	| (((n) & 0xff00) << 40)	\
+	| (((n) & 0xff0000) << 24)	\
+	| (((n) & 0xff000000) << 8)	\
+	| (((n) >> 8) & 0xff000000)	\
+	| (((n) >> 24) & 0xff0000)	\
+	| (((n) >> 40) & 0xff00)	\
+	| ((n) >> 56))
 #endif
 
 /*
@@ -106,7 +106,7 @@ downtimedb_read(int fd, struct downtimedb *buf)
 	}
 
 #ifndef WORDS_BIGENDIAN
-	buf->when = (int64_t) my_bswap64((uint64_t) buf->when);
+	buf->when = (int64_t) MY_BSWAP64((uint64_t) buf->when);
 #endif
 
 	return (1);	/* 1 record read */
@@ -121,7 +121,7 @@ int
 downtimedb_write(int fd, struct downtimedb *buf)
 {
 #ifndef WORDS_BIGENDIAN
-	buf->when = (int64_t) my_bswap64((uint64_t) buf->when);
+	buf->when = (int64_t) MY_BSWAP64((uint64_t) buf->when);
 #endif
 
 	errno = 0;
