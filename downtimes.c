@@ -49,6 +49,7 @@
 
 #include <err.h>
 #include <errno.h>
+#include <fcntl.h>
 #include <inttypes.h>
 #include <paths.h>
 #include <stdio.h>
