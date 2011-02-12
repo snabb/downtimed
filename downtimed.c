@@ -71,7 +71,11 @@
 #include <errno.h>
 #include <fcntl.h>
 #include <inttypes.h>
+
+#ifdef HAVE_PATHS_H
 #include <paths.h>
+#endif
+
 #include <signal.h>
 #include <stdarg.h>
 #include <stdio.h>
@@ -102,14 +106,13 @@
 /* from <paths.h> */
 
 #ifndef _PATH_VARRUN
-#error _PATH_VARRUN is not defined
+#define	_PATH_VARRUN	"/var/run/"
 #endif
 
 /* from <sys/stat.h> */
 
 #ifndef DEFFILEMODE
 #define	DEFFILEMODE 0666
-#warn DEFFILEMODE was not defined
 #endif
 
 /* Function prototypes */

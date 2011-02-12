@@ -44,7 +44,11 @@
 
 #include <errno.h>
 #include <inttypes.h>
+
+#ifdef HAVE_PATHS_H
 #include <paths.h>
+#endif
+
 #include <stdio.h>
 #include <time.h>
 #include <unistd.h>

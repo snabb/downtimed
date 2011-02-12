@@ -27,7 +27,7 @@ AC_PROG_MAKE_SET
 AC_C_INLINE
 AC_C_BIGENDIAN
 
-AC_CHECK_HEADERS([sys/param.h])
+AC_CHECK_HEADERS([sys/param.h paths.h])
 
 # check sys/sysctl.h seperately, as it requires other headers on OpenBSD
 AC_CHECK_HEADERS([sys/sysctl.h], [], [],

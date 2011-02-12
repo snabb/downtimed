@@ -51,7 +51,11 @@
 #include <errno.h>
 #include <fcntl.h>
 #include <inttypes.h>
+
+#ifdef HAVE_PATHS_H
 #include <paths.h>
+#endif
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
