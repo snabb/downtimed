@@ -51,7 +51,7 @@ AC_CHECK_TYPES([sig_atomic_t], [], [AC_DEFINE([sig_atomic_t], [int])], [
 ])
 
 AC_CHECK_DECL([facilitynames], [
-AC_DEFINE([HAVE_SYSLOG_FACILITYNAMES], [1], [Define to 1 if you have the declartion of 'facilitynames' in <syslog.h>.])
+AC_DEFINE([HAVE_SYSLOG_FACILITYNAMES], [1], [Define to 1 if you have the declaration of 'facilitynames' in <syslog.h>.])
 ], [], [
 #include <stdlib.h>
 #define SYSLOG_NAMES
