@@ -50,6 +50,14 @@ AC_CHECK_TYPES([sig_atomic_t], [], [AC_DEFINE([sig_atomic_t], [int])], [
 #include <signal.h>
 ])
 
+AC_CHECK_DECL([facilitynames], [
+AC_DEFINE([HAVE_SYSLOG_FACILITYNAMES], [1], [Define to 1 if you have the declartion of 'facilitynames' in <syslog.h>.])
+], [], [
+#include <stdlib.h>
+#define SYSLOG_NAMES
+#include <syslog.h>
+])
+
 AC_CONFIG_FILES([Makefile])
 AC_OUTPUT
 

@@ -54,6 +54,14 @@
 #define	_BSD_SOURCE
 #endif
 
+/*
+ * Pull in facilitynames array if <syslog.h> has it.
+ */
+
+#ifdef HAVE_SYSLOG_FACILITYNAMES
+#define	SYSLOG_NAMES
+#endif
+
 /* Standard includes that we need */
 
 #include <sys/file.h>
@@ -84,8 +92,6 @@
 #include <sysexits.h>
 #include <time.h>
 #include <unistd.h>
-
-#define  SYSLOG_NAMES
 #include <syslog.h>
 
 #include "downtimedb.h"
@@ -485,6 +491,74 @@ touch(const char *fn, time_t t)
 	}
 }
 
+/* Compatibility for systems without facilitynames in <syslog.h> */
+
+#ifndef HAVE_SYSLOG_FACILITYNAMES
+
+static const struct {
+	const char	*c_name;
+	const int	c_val;
+} facilitynames[] = {
+#ifdef LOG_KERN
+	{ "kern",	LOG_KERN	},
+#endif
+#ifdef LOG_USER
+	{ "user",	LOG_USER	},
+#endif
+#ifdef LOG_MAIL
+	{ "mail",	LOG_MAIL	},
+#endif
+#ifdef LOG_DAEMON
+	{ "daemon",	LOG_DAEMON	},
+#endif
+#ifdef LOG_AUTH
+	{ "auth",	LOG_AUTH	},
+#endif
+#ifdef LOG_SYSLOG
+	{ "syslog",	LOG_SYSLOG	},
+#endif
+#ifdef LOG_LPR
+	{ "lpr",	LOG_LPR		},
+#endif
+#ifdef LOG_NEWS
+	{ "news",	LOG_NEWS	},
+#endif
+#ifdef LOG_AUDIT
+	{ "audit",	LOG_AUDIT	},
+#endif
+#ifdef LOG_CRON
+	{ "cron",	LOG_CRON	},
+#endif
+#ifdef LOG_LOCAL0
+	{ "local0",	LOG_LOCAL0	},
+#endif
+#ifdef LOG_LOCAL1
+	{ "local1",	LOG_LOCAL1	},
+#endif
+#ifdef LOG_LOCAL2
+	{ "local2",	LOG_LOCAL2	},
+#endif
+#ifdef LOG_LOCAL3
+	{ "local3",	LOG_LOCAL3	},
+#endif
+#ifdef LOG_LOCAL4
+	{ "local4",	LOG_LOCAL4	},
+#endif
+#ifdef LOG_LOCAL5
+	{ "local5",	LOG_LOCAL5	},
+#endif
+#ifdef LOG_LOCAL6
+	{ "local6",	LOG_LOCAL6	},
+#endif
+#ifdef LOG_LOCAL7
+	{ "local7",	LOG_LOCAL7	},
+#endif
+	{ NULL,		-1		}
+};
+
+
+#endif /* !defined(HAVE_SYSLOG_FACILITYNAMES) */
+
 /* Determine log destination & initialize */
 
 static void
@@ -587,7 +661,7 @@ version()
 
 	puts(PROGNAME " " PROGVERSION " - system downtime reporting daemon\n");
 
-	puts("Copyright (c) 2009-2010 EPIPE Communications. "
+	puts("Copyright (c) 2009-2011 EPIPE Communications. "
 	    "All rights reserved.");
 	puts("This software is licensed under the terms and conditions of the "
 	    "FreeBSD");
