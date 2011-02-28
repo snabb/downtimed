@@ -491,6 +491,7 @@ sighandler(int signum)
 static void
 touch(const char *fn, time_t t)
 {
+	struct stat sb;
 	struct timeval tv[2];
 	int fd;
 
@@ -518,7 +519,16 @@ touch(const char *fn, time_t t)
 			logwr(LOG_ERR, "%s: %s", fn, strerror(errno));
 	} else {
 #endif /* HAVE_FUTIMES */
-		/* not doing fsync(), no need to open file */
+		/* create the file in case it is missing */
+		if (stat(fn, &sb) < 0) {
+			if ((fd = open(fn, O_WRONLY | O_CREAT | O_TRUNC,
+			    DEFFILEMODE)) < 0) {
+				logwr(LOG_ERR, "%s: %s", fn, strerror(errno));
+				return;
+			}
+			if (close(fd) < 0)
+				logwr(LOG_ERR, "%s: %s", fn, strerror(errno));
+		}
 		if (utimes(fn, t == 0 ? (struct timeval *)NULL : tv) < 0)
 			logwr(LOG_ERR, "%s: %s", fn, strerror(errno));
 #ifdef HAVE_FUTIMES
