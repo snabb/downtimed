@@ -326,6 +326,8 @@ getboottime()
 	 * system log, dmesg.boot, kernel, utmp, etc.) XXX
 	 */
 
+	logwr(LOG_ERR, "can not determine system boot time on this OS");
+
 	return (starttime);	/* give up */
 }
 
