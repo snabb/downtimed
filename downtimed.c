@@ -789,11 +789,15 @@ retry:
 		    cf_pidfile, strerror(errno));
 		return (-1);
 	}
+#ifdef HAVE_FLOCK
 	if (flock(fd, LOCK_EX | LOCK_NB) < 0) {
-		if (errno == EWOULDBLOCK)
+#else
+	if (lockf(fd, F_TLOCK, 0) < 0) {
+#endif
+		if (errno == EWOULDBLOCK || errno == EAGAIN || errno == EACCES)
 			logwr(LOG_ERR, "another process is running already");
 		else
-			logwr(LOG_ERR, "can not flock pid file %s: %s",
+			logwr(LOG_ERR, "can not lock pid file %s: %s",
 			    cf_pidfile, strerror(errno));
 		close(fd);
 		return (-1);
