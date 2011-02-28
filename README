@@ -44,8 +44,7 @@ the main distribution.
 
 Also for the sake of convenience the program uses some functions which
 are available only in modern operating systems. These include for example
-asprintf(3), vasprintf(3), snprintf(3), err(3), errx(3), futimes(2)
-and facilitynames in syslog.h.
+asprintf(3), vasprintf(3), snprintf(3), err(3) and errx(3).
 
 
 History

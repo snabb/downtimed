@@ -153,7 +153,9 @@ char *	cf_log = "daemon";  /* syslog facility or filename with a slash (/) */
 char *	cf_pidfile = _PATH_VARRUN PROGNAME ".pid";
 char *	cf_datadir = PATH_DOWNTIMEDBDIR;
 long	cf_sleep = 15;                 /* update time stamp every 15 seconds */
+#ifdef HAVE_FUTIMES
 int	cf_fsync = 1;	      /* if true, fsync() stamp files after touching */
+#endif
 int	cf_downtimedb = 1;		       /* if true, update downtimedb */
 char *	cf_downtimedbfile = PATH_DOWNTIMEDBFILE;
 
@@ -499,6 +501,7 @@ touch(const char *fn, time_t t)
 		tv[1].tv_usec = 0;
 	}
 
+#ifdef HAVE_FUTIMES
 	if (cf_fsync) {
 		/* we need to open the file so that we can do fsync() to it */
 		if ((fd = open(fn, O_WRONLY | O_CREAT | O_TRUNC,
@@ -514,10 +517,13 @@ touch(const char *fn, time_t t)
 		if (close(fd) < 0)
 			logwr(LOG_ERR, "%s: %s", fn, strerror(errno));
 	} else {
+#endif /* HAVE_FUTIMES */
 		/* not doing fsync(), no need to open file */
 		if (utimes(fn, t == 0 ? (struct timeval *)NULL : tv) < 0)
 			logwr(LOG_ERR, "%s: %s", fn, strerror(errno));
+#ifdef HAVE_FUTIMES
 	}
+#endif /* HAVE_FUTIMES */
 }
 
 /* Compatibility for systems without facilitynames in <syslog.h> */
@@ -704,7 +710,9 @@ version()
 	printf("  datadir = %s\n", cf_datadir);
 	printf("  downtimedbfile = %s\n", cf_downtimedbfile);
 	printf("  sleep = %ld\n", cf_sleep);
+#ifdef HAVE_FUTIMES
 	printf("  fsync = %d\n", cf_fsync);
+#endif
 
 #ifdef PACKAGE_URL
 	puts("\nSee the following web site for more information and updates:");
@@ -742,9 +750,11 @@ parseargs(int argc, char *argv[])
 			if ((p != NULL && *p != '\0') || errno != 0)
 				errx(EX_USAGE, "-s argument is not a number");
 			break;
+#ifdef HAVE_FUTIMES
 		case 'S':
 			cf_fsync = 0;
 			break;
+#endif
 		case 'v':
 			version();
 			/* NOTREACHED */

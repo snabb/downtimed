@@ -1,11 +1,11 @@
 .\"-
-.\" Copyright (c) 2009-2010 EPIPE Communications. All rights reserved.
+.\" Copyright (c) 2009-2011 EPIPE Communications. All rights reserved.
 .\"
 .\" This software is licensed under the terms and conditions of the FreeBSD
 .\" License which is also known as the Simplified BSD License. You should have
 .\" received a copy of that license along with this software.
 .\"
-.TH DOWNTIMED 8 "2010-12-24" "version 0.4"
+.TH DOWNTIMED 8 "2011-02-28" "version 0.5"
 .SH NAME
 downtimed \- system downtime monitoring and reporting daemon
 .SH SYNOPSIS
@@ -62,7 +62,7 @@ Disable
 .BR fsync (2)
 after each update of the time stamp. This reduces
 the load on the disk system, but makes the downtime measurement less
-reliable.
+reliable. This option is not available on all OSes.
 .TP
 .B \-s \fIsleep\fR
 Defines how long to sleep between each update of the on\-disk time
@@ -108,7 +108,7 @@ Reporting is inaccurate if the system clock changes during system
 downtime or startup process. Daylight saving time changes have no
 effect as all calculations are done using UTC.
 .SH COPYRIGHT
-Copyright \(co 2009\-2010 EPIPE Communications. All rights reserved.
+Copyright \(co 2009\-2011 EPIPE Communications. All rights reserved.
 .PP
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions
