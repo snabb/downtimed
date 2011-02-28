@@ -116,6 +116,10 @@
 #define	_PATH_VARRUN	"/var/run/"
 #endif
 
+#ifndef _PATH_DEVNULL
+#define	_PATH_DEVNULL	"/dev/null"
+#endif
+
 /* from <sys/stat.h> */
 
 #ifndef DEFFILEMODE
@@ -138,6 +142,10 @@ static void	usage(void);
 static void	parseargs(int, char *[]);
 static int	makepidfile(void);
 static void	removepidfile(void);
+
+#ifndef HAVE_DAEMON
+static int	daemon(int, int);
+#endif
 
 /* Command line arguments with their defaults */
 
@@ -835,5 +843,39 @@ removepidfile()
 
 	unlink(cf_pidfile);
 }
+
+/* Compatibility daemon(3) function for OSes which lack it */
+
+#ifndef HAVE_DAEMON
+static int
+daemon(int nochdir, int noclose)
+{
+	int fd;
+
+	switch (fork()) {
+		case -1:
+			return (-1);
+		case 0:
+			break;
+		default:
+			exit(0);
+	}
+
+	if (setsid() == -1)
+		return (-1);
+
+	if (!nochdir)
+		chdir("/");
+
+	if (!noclose && (fd = open(_PATH_DEVNULL, O_RDWR, 0)) != -1) {
+		dup2(fd, STDIN_FILENO);
+		dup2(fd, STDOUT_FILENO);
+		dup2(fd, STDERR_FILENO);
+		if (fd > STDERR_FILENO)
+			close(fd);
+	}
+	return (0);
+}
+#endif /* !HAVE_DAEMON */
 
 /* eof */
