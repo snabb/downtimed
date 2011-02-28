@@ -79,11 +79,9 @@
 #include <errno.h>
 #include <fcntl.h>
 #include <inttypes.h>
-
 #ifdef HAVE_PATHS_H
 #include <paths.h>
 #endif
-
 #include <signal.h>
 #include <stdarg.h>
 #include <stdio.h>
@@ -92,6 +90,9 @@
 #include <sysexits.h>
 #include <time.h>
 #include <unistd.h>
+#if defined(__SVR4) && defined(HAVE_UTMPX_H)
+#include <utmpx.h>
+#endif
 #include <syslog.h>
 
 #include "downtimedb.h"
@@ -316,6 +317,24 @@ getboottime()
 				}
 		fclose(fp);
 	}
+#elif defined(__SVR4) && defined(HAVE_UTMPX_H)
+	/*
+	 * This should work on some SVR4 systems, such as Solaris
+	 * and possibly HP-UX.
+	 */
+	struct utmpx ut, *utp;
+
+	memset(&ut, 0, sizeof(ut));
+	ut.ut_type = BOOT_TIME;
+	if ((utp = getutxid(&ut)) != NULL) {
+		time_t boottime;
+
+		boottime = utp->ut_tv.tv_sec;
+		endutxent();
+
+		return (boottime);
+	}
+	endutxent();
 #endif
 	/*
 	 * We fall through here if we do not have OS specific code
