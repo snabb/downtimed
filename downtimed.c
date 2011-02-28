@@ -315,7 +315,7 @@ getboottime()
 	 */
 	char str[1024];
 	FILE *fp;
-	time_t bt = 0;
+	long unsigned bt = 0;
 
 	if ((fp = fopen("/proc/stat", "r")) != NULL) {
 		while (fgets(str, sizeof(str), fp) != NULL)
@@ -323,7 +323,7 @@ getboottime()
 				if (sscanf(str, "btime %lu", &bt) == 1 &&
 				    bt != 0) {
 					fclose(fp);
-					return (bt);
+					return ((time_t)bt);
 				}
 		fclose(fp);
 	}
@@ -836,7 +836,7 @@ retry:
 		close(fd);
 		return (-1);
 	}
-	snprintf(str, sizeof(str), "%d\n", getpid());
+	snprintf(str, sizeof(str), "%ld\n", (long)getpid());
 	if (write(fd, str, strlen(str)) != strlen(str)) {
 		logwr(LOG_ERR, "can not write pid file %s: %s",
 		    cf_pidfile, strerror(errno));
