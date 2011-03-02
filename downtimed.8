@@ -5,7 +5,7 @@
 .\" License which is also known as the Simplified BSD License. You should have
 .\" received a copy of that license along with this software.
 .\"
-.TH DOWNTIMED 8 "2011-02-28" "version 0.5"
+.TH DOWNTIMED 8 "2011-03-02" "version 0.5"
 .SH NAME
 downtimed \- system downtime monitoring and reporting daemon
 .SH SYNOPSIS
@@ -58,11 +58,12 @@ running daemon process. The system default location is determined at
 compile time.
 .TP
 .B \-S
-Disable
+Normally
 .BR fsync (2)
-after each update of the time stamp. This reduces
-the load on the disk system, but makes the downtime measurement less
-reliable. This option is not available on all OSes.
+is performed after each update of the time stamp. This option disables the
+.BR fsync (2).
+It reduces the load on the disk system but makes the downtime
+measurement less reliable. This option is not available on all systems.
 .TP
 .B \-s \fIsleep\fR
 Defines how long to sleep between each update of the on\-disk time
