@@ -43,7 +43,7 @@ version 0.5 released 2011-03-02
 
  - OpenBSD compatibility improvements.
 
- - GNU/kFreeBSD compatibility improvements.
+ - Debian GNU/kFreeBSD compatibility improvements.
 
  - Use volatile sig_atomic_t if available for flags set by signal handlers.
 

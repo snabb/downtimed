@@ -31,6 +31,7 @@ Currently supported operating systems:
  - Recent versions of FreeBSD and OpenBSD
  - Modern GNU/Linux distributions
  - Mac OS X/Darwin
+ - Solaris
 
 The software probably works on other modern *BSD variants with zero or
 little modifications.
@@ -114,7 +115,7 @@ MacOS X as follows:
 
   mkdir /var/db/downtimed
 
-...or on GNU/Linux or Debian GNU/kFreeBSD as follows:
+...or on GNU/Linux, Debian GNU/kFreeBSD or Solaris as follows:
 
   mkdir /var/lib/downtimed
 
@@ -209,6 +210,6 @@ Mats Erik Andersson <openbsd@gisladisker.se>
 Federico Lucifredi <flucifredi@acm.org>
  - openSUSE startup script
 
-Thank you!
+Thank You!
 
 /* eof */
