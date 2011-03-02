@@ -2,20 +2,52 @@
 
                            version history
 
-version 0.5 released 2011-01-XX
+version 0.5 released 2011-03-02
 
- - Remove depedency on be64toh(3) and betoh64(3). Or betoh64(3) and
+ - Fixed a bug which prevented creation of the required time stamp
+   files in case command line option -S was set.
+
+ - Determine boot time on some SVR4 systems such as Solaris.
+
+ - Compatibility for systems which do not have flock() but have lockf(),
+   such as Solaris.
+
+ - Compatibility for systems without facilitynames in <syslog.h>, such
+   as Solaris.
+
+ - Compatibility daemon(3) function for OSes which do not have it, such
+   as Solaris.
+
+ - Compatibility for systems which lack futimes(3) function, such as
+   Solaris.
+
+ - Log an error message if system boot time can not be determined.
+
+ - Remove dependency on be64toh(3) and betoh64(3). Or betoh64(3) and
    htobe64(3). Or OSSwapBigToHostInt64(3) and OSSwapHostToBigInt64(3).
    The code became a mess because 64 bit byte swapping is not standardized.
 
    Also some commonly used GNU/Linux distributions such as RHEL/CentOS 5.5
    have such an old glibc that it does not include any of these functions.
 
-   Now we just implement our own byte swapping function and ignore
-   whatever is or is not available from the system. This should improve
-   portability on many platforms.
+   Now we just implement our own byte swapping macro and ignore whatever
+   is or is not available from the system. This improves portability
+   on many platforms, for example on CentOS, RedHat (RHEL) and Solaris.
+
+ - Improve README documentation regarding startup scripts.
+
+ - Example startup scripts have been moved to the "startup-scripts"
+   sub-directory.
 
  - openSUSE startup script by Federico Lucifredi <flucifredi@acm.org>.
+
+ - OpenBSD compatibility improvements.
+
+ - GNU/kFreeBSD compatibility improvements.
+
+ - Use volatile sig_atomic_t if available for flags set by signal handlers.
+
+ - Other minor fixes.
 
 version 0.4 released 2010-12-25
 
