@@ -8,7 +8,7 @@
 # received a copy of that license along with this software.
 # 
 
-AC_PREREQ(2.64)
+AC_PREREQ(2.65)
 AC_INIT([downtimed],[0.5],[opensource@epipe.com],[],[http://dist.epipe.com/downtimed/])
 AC_CONFIG_SRCDIR([downtimed.c])
 AC_CONFIG_HEADERS([config.h])
