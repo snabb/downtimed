@@ -28,7 +28,7 @@ Portability
 ===========
 
 Currently supported operating systems:
- - Recent versions of FreeBSD and OpenBSD
+ - Recent versions of FreeBSD, NetBSD and OpenBSD
  - Modern GNU/Linux distributions
  - Mac OS X/Darwin
  - Solaris
