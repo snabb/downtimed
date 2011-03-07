@@ -135,10 +135,17 @@ invented their own ways of starting system daemons during the boot
 process. That is a major pain in the ass.
 
 The downtimed distribution includes the following operating system and
-distribution specific startup scripts. They are located in the
+distribution specific startup script samples. They are located in the
 "startup-scripts" directory. It is assumed that system administrators
 or port/package maintainers will implement and configure the required
 startup scripts.
+
+Debian
+------
+A startup script for GNU/Debian and related distributions is included as
+debian-startup.sh. It should be installed as /etc/init.d/downtimed.
+Running the command "update-rc.d downtimed defaults" enables starting the
+service at the system startup.
 
 FreeBSD
 -------

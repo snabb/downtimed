@@ -2,6 +2,10 @@
 
                            version history
 
+version 0.6 released 2011-05-XX
+
+ - Added startup scripts for Debian and Red Hat (RHEL/Fedora/CentOS/etc.)
+
 version 0.5 released 2011-03-02
 
  - Fixed a bug which prevented creation of the required time stamp

@@ -20,7 +20,7 @@
 DESC="downtime bookkeeper"
 NAME="downtimed"
 
-DAEMON="/usr/sbin/$NAME"
+DAEMON="/usr/local/sbin/$NAME"
 PIDFILE=/var/run/$NAME.pid
 
 PATH=/sbin:/usr/sbin:/bin:/usr/bin
