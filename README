@@ -150,7 +150,15 @@ service at the system startup.
 FreeBSD
 -------
 A sample startup script for FreeBSD is included as freebsd-startup.sh.
-It should be installed as /usr/local/etc/rc.d/downtimed.
+It should be installed as /usr/local/etc/rc.d/downtimed. Add:
+	downtimed_enable="YES"
+...in one of the following files to enable boot time startup:
+	/etc/rc.conf
+	/etc/rc.conf.local
+	/etc/rc.conf.d/downtimed
+Add the following if you want to configure downtimed(8) command line
+options:
+	downtimed_flags="<set as needed>"
 
 openSUSE
 --------
