@@ -760,11 +760,11 @@ parseargs(int argc, char *argv[])
 			if ((p != NULL && *p != '\0') || errno != 0)
 				errx(EX_USAGE, "-s argument is not a number");
 			break;
-#ifdef HAVE_FUTIMES
 		case 'S':
+#ifdef HAVE_FUTIMES
 			cf_fsync = 0;
-			break;
 #endif
+			break;
 		case 'v':
 			version();
 			/* NOTREACHED */
