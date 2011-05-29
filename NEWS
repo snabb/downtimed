@@ -36,7 +36,7 @@ version 0.5 released 2011-03-02
 
    Now we just implement our own byte swapping macro and ignore whatever
    is or is not available from the system. This improves portability
-   on many platforms, for example on CentOS, RedHat (RHEL) and Solaris.
+   on many platforms, for example on Red Hat (RHEL) and Solaris.
 
  - Improve README documentation regarding startup scripts.
 

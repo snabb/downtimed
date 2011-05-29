@@ -172,8 +172,8 @@ Mac OS X
 Mac OS X/Darwin launchd(8) configuration file com.epipe.downtimed.plist is
 also included. This file should be installed to /Library/LaunchDaemons.
 
-Red Hat based distributions (RHEL, Fedora, CentOS, etc.)
---------------------------------------------------------
+Red Hat based distributions (RHEL, Fedora, SL, Oracle, CentOS, etc.)
+--------------------------------------------------------------------
 A startup script for Red Hat related distributions is included as
 redhat-startup.sh. It should be installed as /etc/rc.d/init.d/downtimed.
 Running the command "chkconfig --add downtimed" enables starting the
