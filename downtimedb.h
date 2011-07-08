@@ -69,11 +69,15 @@ struct downtimedb {
 
 #define	PATH_DOWNTIMEDBFILE	PATH_DOWNTIMEDBDIR "downtimedb"
 
+/* default absolute time format unless specified by user */
+
+#define FMT_DATETIME		"%F %T"
+
 /* Function prototypes */
 
 int	downtimedb_read(int, struct downtimedb *);
 int	downtimedb_write(int, struct downtimedb *);
-char *	timestr_abs(time_t);
+char *	timestr_abs(time_t, const char *);
 char *	timestr_int(time_t);
 
 /* eof */

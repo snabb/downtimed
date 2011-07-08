@@ -13,6 +13,8 @@ downtimes \- display system downtime records made by
 .B downtimes
 .RB [\| \-d
 .IR downtimedbfile \|]
+.RB [\| \-f
+.IR timefmt \|]
 .RB [\| \-n
 .IR num \|]
 .RB [\| \-s
@@ -21,6 +23,8 @@ downtimes \- display system downtime records made by
 .\".B downtime
 .\".RB [\| \-d
 .\".IR downtimedbfile \|]
+.\".RB [\| \-f
+.\".IR timefmt \|]
 .\".RB [\| \-n
 .\".IR num \|]
 .\".RB [\| \-s
@@ -52,6 +56,11 @@ records to display.
 .TP
 .B \-d \fIdowntimedbfile\fR
 Use the specified downtime database file instead of the system default.
+.TP
+.B \-f \fItimefmt\fR
+Specify the time and date format to use when reporting using
+.BR strftime (3)
+syntax. The default is "%F %T".
 .TP
 .B \-n \fInum\fR
 Define how many latest downtime records to output. Default is all.

@@ -158,6 +158,7 @@ int	cf_fsync = 1;	      /* if true, fsync() stamp files after touching */
 #endif
 int	cf_downtimedb = 1;		       /* if true, update downtimedb */
 char *	cf_downtimedbfile = PATH_DOWNTIMEDBFILE;
+char *	cf_timefmt = FMT_DATETIME;
 
 /* Logging destination, determined from cf_log */
 
@@ -460,10 +461,10 @@ report()
 
 	if (have_shutdown) {
 		logwr(LOG_NOTICE, "system shutdown at %s",
-		    timestr_abs(sb_shutdown.st_mtime));
+		    timestr_abs(sb_shutdown.st_mtime, cf_timefmt));
 	} else {
 		logwr(LOG_NOTICE, "system crashed at %s",
-		    timestr_abs(sb_stamp.st_mtime));
+		    timestr_abs(sb_stamp.st_mtime, cf_timefmt));
 	}
 
 	logwr(LOG_NOTICE, "previous uptime was %s (%d seconds)",
@@ -664,7 +665,7 @@ logwr(int pri, const char *fmt, ...)
 			goto err;
 
 		if (asprintf(&str2, "%s: %s\n",
-		    timestr_abs(time((time_t *) NULL)), str) < 0) {
+		    timestr_abs(time((time_t *) NULL), cf_timefmt), str) < 0) {
 			free(str);
 			goto err;
 		}
@@ -739,13 +740,16 @@ parseargs(int argc, char *argv[])
 	int c;
 	char *p;
 
-	while ((c = getopt(argc, argv, "Dd:l:p:s:Svh?")) != -1) {
+	while ((c = getopt(argc, argv, "Dd:f:l:p:s:Svh?")) != -1) {
 		switch (c) {
 		case 'D':
 			cf_downtimedb = 0;
 			break;
 		case 'd':
 			cf_datadir = optarg;
+			break;
+		case 'f':
+			cf_timefmt = optarg;
 			break;
 		case 'l':
 			cf_log = optarg;

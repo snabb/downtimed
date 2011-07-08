@@ -89,6 +89,7 @@ static void	parseargs(int, char *[]);
 long	cf_sleep = 0;         /* adjust crash time according to sleep value */
 char *	cf_downtimedbfile = PATH_DOWNTIMEDBFILE;
 long	cf_n = -1;                 /* number of downtime records to display */
+char *	cf_timefmt = FMT_DATETIME;
 
 /*
  * downtimes: display system downtime records made by downtimed(8)
@@ -168,9 +169,9 @@ static void
 report(int64_t td, int crashed, int64_t tu)
 {
 	printf("%s %s -> ", crashed ? "crash" : "down ", 
-	    timestr_abs((time_t) td));
+	    timestr_abs((time_t) td, cf_timefmt));
 
-	printf("up %s ", timestr_abs((time_t) tu));
+	printf("up %s ", timestr_abs((time_t) tu, cf_timefmt));
 
 	/* timestr_int() returns string such as 21+06:11:38 or 06:11:38 */
 
@@ -213,6 +214,7 @@ version()
 	printf("  downtimedbfile = %s\n", cf_downtimedbfile);
 	printf("  num = %ld\n", cf_n);
 	printf("  sleep = %ld\n", cf_sleep);
+	printf("  timefmt = %s\n", cf_timefmt);
 
 #ifdef PACKAGE_URL
 	puts("\nSee the following web site for more information and updates:");
@@ -232,10 +234,13 @@ parseargs(int argc, char *argv[])
 	if (strlen(argv[0]) > 0 && argv[0][strlen(argv[0])-1] != 's')
 		cf_n = 1;
 
-	while ((c = getopt(argc, argv, "d:n:s:vh?")) != -1) {
+	while ((c = getopt(argc, argv, "d:f:n:s:vh?")) != -1) {
 		switch (c) {
 		case 'd':
 			cf_downtimedbfile = optarg;
+			break;
+		case 'f':
+			cf_timefmt = optarg;
 			break;
 		case 'n':
 			p = NULL;

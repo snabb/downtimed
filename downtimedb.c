@@ -142,15 +142,15 @@ downtimedb_write(int fd, struct downtimedb *buf)
  */
 
 char *
-timestr_abs(time_t t)
+timestr_abs(time_t t, const char *fmt)
 {
-	static char str[100];
+	static char str[256];
 	struct tm *lt;
 
 	if (t != 0) {
 		if ((lt = localtime(&t)) == NULL)
 			goto err;
-		if (strftime(str, sizeof(str), "%F %T", lt) == 0)
+		if (strftime(str, sizeof(str), fmt, lt) == 0)
 			goto err;
 
 		return (str);

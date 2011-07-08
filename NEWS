@@ -6,6 +6,10 @@ version 0.6 released 2011-05-XX
 
  - Added startup scripts for Debian and Red Hat (RHEL/Fedora/CentOS/etc.)
 
+ - Implemented -f command line option for downtimes(1) and downtimed(8).
+   It can be used to specify the desired time and date format for
+   reporting. The default remains "%F %T".
+
 version 0.5 released 2011-03-02
 
  - Fixed a bug which prevented creation of the required time stamp

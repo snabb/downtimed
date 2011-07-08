@@ -13,6 +13,8 @@ downtimed \- system downtime monitoring and reporting daemon
 .RB [\| \-D \|]
 .RB [\| \-d
 .IR datadir \|]
+.RB [\| \-f
+.IR timefmt \|]
 .RB [\| \-l
 .IR log \|]
 .RB [\| \-p
@@ -44,6 +46,11 @@ Do not create nor update the downtime database.
 .B \-d \fIdatadir\fR
 The directory where the time stamp files as well as the downtime database
 are located. The default directory is determined at compile time.
+.TP
+.B \-f \fItimefmt\fR
+Specify the time and date format to use when reporting using
+.BR strftime (3)
+syntax. The default is "%F %T".
 .TP
 .B \-l \fIlog\fR
 Logging destination. If the argument contains a slash (/) it is interpreted
