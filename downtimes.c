@@ -147,6 +147,7 @@ main(int argc, char *argv[])
 			    crashed, dbent.when);
 			tdown = 0;
 			break;
+		case DOWNTIMEDB_WHAT_START: /* ignore for now */
 		case DOWNTIMEDB_WHAT_NONE:
 		default:
 			break;

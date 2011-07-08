@@ -10,6 +10,12 @@ version 0.6 released 2011-05-XX
    It can be used to specify the desired time and date format for
    reporting. The default remains "%F %T".
 
+ - Implemented recording of the daemon startup time in the downtime
+   database. If downtimed(8) is configured as the very last daemon to
+   be starte, this record can be used for seeing how long the system
+   takes to come up after booting. Previously this information was
+   logged only in syslog.
+
 version 0.5 released 2011-03-02
 
  - Fixed a bug which prevented creation of the required time stamp
