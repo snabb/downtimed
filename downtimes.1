@@ -19,6 +19,7 @@ downtimes \- display system downtime records made by
 .IR num \|]
 .RB [\| \-s
 .IR sleep \|]
+.RB [\| \-u \|]
 .br
 .\".B downtime
 .\".RB [\| \-d
@@ -29,6 +30,7 @@ downtimes \- display system downtime records made by
 .\".IR num \|]
 .\".RB [\| \-s
 .\".IR sleep \|]
+.\".RB [\| \-u \|]
 .\".br
 .B downtimes
 .B \-v
@@ -69,6 +71,9 @@ Define how many latest downtime records to output. Default is all.
 Calculate the approximate crash time by specifying what was the
 sleep value of
 .BR downtimed (8).
+.TP
+.B \-u
+Display times in UTC.
 .TP
 .B \-v
 Display the program version number, copyright message and the default

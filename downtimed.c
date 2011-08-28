@@ -150,34 +150,34 @@ static int	daemon(int, int);
 
 /* Command line arguments with their defaults */
 
-char *	cf_log = "daemon";  /* syslog facility or filename with a slash (/) */
-char *	cf_pidfile = _PATH_VARRUN PROGNAME ".pid";
-char *	cf_datadir = PATH_DOWNTIMEDBDIR;
-long	cf_sleep = 15;                 /* update time stamp every 15 seconds */
+static char *	cf_log = "daemon";    /* syslog facility or filename with / */
+static char *	cf_pidfile = _PATH_VARRUN PROGNAME ".pid";
+static char *	cf_datadir = PATH_DOWNTIMEDBDIR;
+static long	cf_sleep = 15;        /* update time stamp every 15 seconds */
 #ifdef HAVE_FUTIMES
-int	cf_fsync = 1;	      /* if true, fsync() stamp files after touching */
+static int	cf_fsync = 1;  /* set to fsync() stamp files after touching */
 #endif
-int	cf_downtimedb = 1;		       /* if true, update downtimedb */
-char *	cf_downtimedbfile = PATH_DOWNTIMEDBFILE;
-char *	cf_timefmt = FMT_DATETIME;
+static int	cf_downtimedb = 1;            /* if true, update downtimedb */
+static char *	cf_downtimedbfile = PATH_DOWNTIMEDBFILE;
+static char *	cf_timefmt = FMT_DATETIME;
 
 /* Logging destination, determined from cf_log */
 
-int	cf_logfacility = 0;
-int	cf_logfd = -1;
+static int	cf_logfacility	=  0;
+static int	cf_logfd	= -1;
 
 /* Global variables */
 
-char *	ts_stamp = NULL;
-char *	ts_shutdown = NULL;
-char *	ts_boot = NULL;
-time_t	boottime = 0;
-time_t	starttime = 0;
+static char *	ts_stamp	= NULL;
+static char *	ts_shutdown	= NULL;
+static char *	ts_boot		= NULL;
+static time_t	boottime	= 0;
+static time_t	starttime	= 0;
 
 /* The following are set by the signal handler */
 
-volatile sig_atomic_t	exiting = 0;
-volatile sig_atomic_t	reopenlog = 0;
+static volatile sig_atomic_t	exiting	  = 0;
+static volatile sig_atomic_t	reopenlog = 0;
 
 /*
  * downtimed: system downtime monitoring and reporting daemon.
@@ -473,10 +473,10 @@ report()
 
 	if (have_shutdown) {
 		logwr(LOG_NOTICE, "system shutdown at %s",
-		    timestr_abs(sb_shutdown.st_mtime, cf_timefmt));
+		    timestr_abs(sb_shutdown.st_mtime, cf_timefmt, 0));
 	} else {
 		logwr(LOG_NOTICE, "system crashed at %s",
-		    timestr_abs(sb_stamp.st_mtime, cf_timefmt));
+		    timestr_abs(sb_stamp.st_mtime, cf_timefmt, 0));
 	}
 
 	logwr(LOG_NOTICE, "previous uptime was %s (%d seconds)",
@@ -677,7 +677,8 @@ logwr(int pri, const char *fmt, ...)
 			goto err;
 
 		if (asprintf(&str2, "%s: %s\n",
-		    timestr_abs(time((time_t *) NULL), cf_timefmt), str) < 0) {
+		    timestr_abs(time((time_t *) NULL), cf_timefmt, 0), str)
+		    < 0) {
 			free(str);
 			goto err;
 		}

@@ -86,10 +86,11 @@ static void	parseargs(int, char *[]);
 
 /* Command line arguments with their defaults */
 
-long	cf_sleep = 0;         /* adjust crash time according to sleep value */
-char *	cf_downtimedbfile = PATH_DOWNTIMEDBFILE;
-long	cf_n = -1;                 /* number of downtime records to display */
-char *	cf_timefmt = FMT_DATETIME;
+static long	cf_sleep = 0; /* adjust crash time according to sleep value */
+static char *	cf_downtimedbfile = PATH_DOWNTIMEDBFILE;
+static long	cf_n = -1;         /* number of downtime records to display */
+static char *	cf_timefmt = FMT_DATETIME;
+static int	cf_utc = 0;                  /* set to display times in UTC */
 
 /*
  * downtimes: display system downtime records made by downtimed(8)
@@ -170,11 +171,16 @@ static void
 report(int64_t td, int crashed, int64_t tu)
 {
 	printf("%s %s -> ", crashed ? "crash" : "down ", 
-	    timestr_abs((time_t) td, cf_timefmt));
+	    timestr_abs((time_t) td, cf_timefmt, cf_utc));
 
-	printf("up %s ", timestr_abs((time_t) tu, cf_timefmt));
+	/* Note that the printf() above and below is intentionally split
+	   into two parts because timestr_abs() clobbers the returned
+	   static string on each call. */
 
-	/* timestr_int() returns string such as 21+06:11:38 or 06:11:38 */
+	printf("up %s ", timestr_abs((time_t) tu, cf_timefmt, cf_utc));
+
+	/* timestr_int() returns string representing a relative time (time
+	   period) such as 21+06:11:38 or 06:11:38 */
 
 	if (tu != 0 && td != 0)
 		printf("= %11s (%"PRIu64" s)\n",
@@ -190,7 +196,7 @@ usage()
 {
 
 	fputs("usage: " PROGNAME " [-v] [-d downtimedbfile] [-n num] "
-	    "[-s sleep]\n", stderr);
+	    "[-s sleep] [-u]\n", stderr);
 	exit(EX_USAGE);
 }
 
@@ -216,6 +222,7 @@ version()
 	printf("  num = %ld\n", cf_n);
 	printf("  sleep = %ld\n", cf_sleep);
 	printf("  timefmt = %s\n", cf_timefmt);
+	printf("  utc = %d\n", cf_utc);
 
 #ifdef PACKAGE_URL
 	puts("\nSee the following web site for more information and updates:");
@@ -235,7 +242,7 @@ parseargs(int argc, char *argv[])
 	if (strlen(argv[0]) > 0 && argv[0][strlen(argv[0])-1] != 's')
 		cf_n = 1;
 
-	while ((c = getopt(argc, argv, "d:f:n:s:vh?")) != -1) {
+	while ((c = getopt(argc, argv, "d:f:n:s:uvh?")) != -1) {
 		switch (c) {
 		case 'd':
 			cf_downtimedbfile = optarg;
@@ -256,6 +263,9 @@ parseargs(int argc, char *argv[])
 			cf_sleep = strtol(optarg, &p, 10);
 			if ((p != NULL && *p != '\0') || errno != 0)
 				errx(EX_USAGE, "-s argument is not a number");
+			break;
+		case 'u':
+			cf_utc = 1;
 			break;
 		case 'v':
 			version();

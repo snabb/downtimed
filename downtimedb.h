@@ -78,7 +78,7 @@ struct downtimedb {
 
 int	downtimedb_read(int, struct downtimedb *);
 int	downtimedb_write(int, struct downtimedb *);
-char *	timestr_abs(time_t, const char *);
+char *	timestr_abs(time_t, const char *, int);
 char *	timestr_int(time_t);
 
 /* eof */
