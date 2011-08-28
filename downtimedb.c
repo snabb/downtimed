@@ -96,8 +96,8 @@ downtimedb_read(int fd, struct downtimedb *buf)
 	int ret;
 
 	errno = 0;
-	if ((ret = read(fd, (void *)buf, sizeof(struct downtimedb))) <
-	    sizeof(struct downtimedb)) {
+	if ((ret = read(fd, (void *)buf, sizeof(struct downtimedb)))
+	    < sizeof(struct downtimedb)) {
 		if (ret == 0)
 			return (0);	/* eof */
 		else {
@@ -129,8 +129,8 @@ downtimedb_write(int fd, struct downtimedb *buf)
 #endif
 
 	errno = 0;
-	if (write(fd, (void *)buf, sizeof(struct downtimedb)) <
-	    sizeof(struct downtimedb))
+	if (write(fd, (void *)buf, sizeof(struct downtimedb))
+	    < sizeof(struct downtimedb))
 		return (-1);
 
 	return (0);
