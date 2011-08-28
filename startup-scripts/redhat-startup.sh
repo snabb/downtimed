@@ -5,7 +5,7 @@
 #	downtimed: system downtime monitoring and reporting tool
 #
 #	This init script should work on Red Hat related distributions
-#	such as RHEL/Fedora/CentOS. Based on:
+#	such as RHEL/Fedora/Scientific Linux/CentOS. Based on:
 #	http://fedoraproject.org/wiki/Packaging:SysVInitScript
 #
 # chkconfig:	2345 99 99

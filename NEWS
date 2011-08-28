@@ -4,11 +4,18 @@
 
 version 0.6 released 2011-05-XX
 
- - Added startup scripts for Debian and Red Hat (RHEL/Fedora/CentOS/etc.)
+ - XXX: Boot time recording is enabled in daemon but not in downtimes(1)
+   reporting command: thus it is BROKEN currently.
+
+ - Added startup scripts for Debian and Red Hat (RHEL/Fedora/Scientific
+   Linux/CentOS/etc.)
 
  - Implemented -f command line option for downtimes(1) and downtimed(8).
    It can be used to specify the desired time and date format for
    reporting. The default remains "%F %T".
+
+ - Implemented -u command line option for downtimes(1) for reporting
+   times in UTC. Analogous to "date -u".
 
  - Implemented recording of the daemon startup time in the downtime
    database. If downtimed(8) is configured as the very last daemon to
