@@ -4,8 +4,8 @@
 
 version 0.6 released 2012-XX-XX
 
- - Added startup scripts for Debian and Red Hat (RHEL/Fedora/Scientific
-   Linux/CentOS/etc.)
+ - Added startup scripts for Debian, Red Hat (RHEL/Fedora/Scientific
+   Linux/CentOS/etc.) and Arch Linux.
 
  - Implemented -f command line option for downtimes(1) and downtimed(8).
    It can be used to specify the desired time and date format for

@@ -140,6 +140,12 @@ distribution specific startup script samples. They are located in the
 or port/package maintainers will implement and configure the required
 startup scripts.
 
+Arch Linux
+----------
+Arch Linux startup script is included as archlinux-startup.sh. It should
+be installed as /etc/rc.d/downtimed and added to the DAEMONS setting in
+/etc/rc.conf.
+
 Debian
 ------
 A startup script for GNU/Debian and related distributions is included as
@@ -232,6 +238,11 @@ Mats Erik Andersson <openbsd@gisladisker.se>
 
 Federico Lucifredi <flucifredi@acm.org>
  - openSUSE startup script
+
+Jason Melton <jason.melton@gmail.com>
+ - Arch Linux startup script
+
+Others who I may have forgotten. (Sorry!)
 
 Thank You!
 
