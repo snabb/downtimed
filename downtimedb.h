@@ -60,7 +60,6 @@ struct downtimedb {
 #define	DOWNTIMEDB_WHAT_UP		1
 #define	DOWNTIMEDB_WHAT_SHUTDOWN	2
 #define	DOWNTIMEDB_WHAT_CRASH		3
-#define	DOWNTIMEDB_WHAT_START		4
 
 #if defined(__linux__) || defined(__FreeBSD_kernel__) || !defined(_PATH_VARDB)
 #define	PATH_DOWNTIMEDBDIR	"/var/lib/downtimed/"

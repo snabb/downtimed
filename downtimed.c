@@ -130,8 +130,7 @@
 
 int		main(int, char *[]);
 static time_t	getboottime(void);
-static void	updatedowntimedb(const time_t, const time_t, const int,
-		    const time_t);
+static void	updatedowntimedb(time_t, int, time_t);
 static void	report(void);
 static void	sighandler(int);
 static void	touch(const char *, time_t);
@@ -365,8 +364,7 @@ getboottime()
 /* Update downtime database */
 
 void
-updatedowntimedb(const time_t start, const time_t up, const int crashed,
-    const time_t down)
+updatedowntimedb(time_t up, int crashed, time_t down)
 {
 	struct downtimedb dbent;
 	int fd;
@@ -394,16 +392,6 @@ updatedowntimedb(const time_t start, const time_t up, const int crashed,
 
 	dbent.what = DOWNTIMEDB_WHAT_UP;
 	dbent.when = (uint64_t) up;
-
-	if (downtimedb_write(fd, &dbent) < 0)
-		logwr(LOG_ERR, "can not write to %s: %s", cf_downtimedbfile,
-		    strerror(errno));
-
-	/* not really needed, but ensure again that padding bytes are zero */
-	memset(&dbent, 0, sizeof(struct downtimedb));
-
-	dbent.what = DOWNTIMEDB_WHAT_START;
-	dbent.when = (uint64_t) start;
 
 	if (downtimedb_write(fd, &dbent) < 0)
 		logwr(LOG_ERR, "can not write to %s: %s", cf_downtimedbfile,
@@ -467,7 +455,7 @@ report()
 	    starttime - boottime);
 
 	if (cf_downtimedb)
-		updatedowntimedb(starttime, boottime, !have_shutdown,
+		updatedowntimedb(boottime, !have_shutdown,
 		    (have_shutdown ?
 		    sb_shutdown.st_mtime : sb_stamp.st_mtime));
 
