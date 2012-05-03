@@ -31,7 +31,8 @@ Currently supported operating systems:
  - Recent versions of FreeBSD, NetBSD and OpenBSD
  - Modern GNU/Linux distributions
  - Mac OS X/Darwin
- - Solaris
+ - GNU/Hurd
+ - Solaris / OpenSolaris / OpenIndiana
 
 The software probably works on other modern *BSD variants with zero or
 little modifications.
@@ -115,7 +116,7 @@ MacOS X as follows:
 
   mkdir /var/db/downtimed
 
-...or on GNU/Linux, Debian GNU/kFreeBSD or Solaris as follows:
+...or on GNU/Linux, Debian GNU/kFreeBSD, GNU/Hurd or Solaris as follows:
 
   mkdir /var/lib/downtimed
 
@@ -170,6 +171,12 @@ Mac OS X
 --------
 Mac OS X/Darwin launchd(8) configuration file com.epipe.downtimed.plist is
 also included. This file should be installed to /Library/LaunchDaemons.
+
+OpenIndiana / OpenSolaris / Solaris
+-----------------------------------
+SMF (Service Management Facility) manifest for OpenIndiana, OpenSolaris
+and Solaris 10 & 11 is in downtimed.smf.xml. It is not usable on Solaris
+9 and older as they need a SysV style init script instead.
 
 openSUSE
 --------
