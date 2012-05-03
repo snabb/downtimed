@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+
+<!DOCTYPE service_bundle SYSTEM
+	"/usr/share/lib/xml/dtd/service_bundle.dtd.1">
+
+<!--
+    SMF Manifest for downtimed.
+
+    Copyright 2012 Mats Erik Andersson. All rights reserved.
+    Licensed as 2-clause BSD license, identical to the text
+    used by downtimed-0.5.
+-->
+
+<service_bundle type="manifest" name="downtimed">
+	<service
+		name="system/downtimed"
+		type="service"
+		version="1">
+		<single_instance />
+		<dependency
+			name="usr"
+			type="service"
+			grouping="require_all"
+			restart_on="none">
+			<service_fmri value="svc:/system/filesystem/local" />
+		</dependency>
+		<exec_method
+			type="method"
+			name="start"
+			exec="/usr/local/sbin/downtimed"
+			timeout_seconds="15">
+			<method_context>
+				<method_credential user="root" group="root" />
+			</method_context>
+		</exec_method>
+		<exec_method
+			type="method"
+			name="stop"
+			exec=":kill"
+			timeout_seconds="5" />
+		<instance name="default" enabled="true" />
+		<stability value="Unstable" />
+
+		<template>
+			<common_name>
+				<loctext xml:lang="C">
+					downtime cronograph
+				</loctext>
+			</common_name>
+			<documentation>
+				<manpage title="downtimed" section="8" manpath="/usr/local/share/man" />
+				<manpage title="downtimes" section="1" manpath="/usr/local/share/man" />
+			</documentation>
+		</template>
+	</service>
+</service_bundle>
