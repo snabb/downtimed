@@ -48,8 +48,8 @@
  * on GNU/Linux.
  */
 
-#if defined(__linux__) || defined(__GLIBC__)
-/* GNU/Linux or GNU/kFreeBSD */
+#if defined(__linux__) || defined(__GLIBC__) || defined(__GNU__)
+/* GNU/Linux, GNU/kFreeBSD, and GNU/Hurd */
 #define	_GNU_SOURCE
 #define	_BSD_SOURCE
 #endif
