@@ -60,7 +60,7 @@ do_start()
 do_stop()
 {
 	start-stop-daemon --stop --quiet --retry=TERM/30/KILL/5 \
-			--pidfile $PIDFILE --name $NAME
+			--pidfile $PIDFILE --exec $DAEMON
 	RETVAL="$?"
 	[ "$RETVAL" = 2 ] && return 2
 
@@ -81,7 +81,7 @@ do_stop()
 
 do_reload() {
 	start-stop-daemon --stop --signal 1 --quiet \
-			--pidfile $PIDFILE --name $NAME
+			--pidfile $PIDFILE --exec $DAEMON
 	return 0
 }
 
