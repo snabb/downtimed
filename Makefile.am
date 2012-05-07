@@ -1,7 +1,7 @@
 #
 # Makefile.am
 #
-# Copyright (c) 2009-2011 EPIPE Communications. All rights reserved.
+# Copyright (c) 2009-2012 EPIPE Communications. All rights reserved.
 #
 # This software is licensed under the terms and conditions of the FreeBSD
 # License which is also known as the Simplified BSD License. You should have
