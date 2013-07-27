@@ -1,5 +1,5 @@
 /*-
- * Copyright (c) 2009-2012 EPIPE Communications. All rights reserved.
+ * Copyright (c) 2009-2013 EPIPE Communications. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -37,7 +37,7 @@
 /*
  * The structure of the downtime database file.
  *
- * This should provide a Y2K38 bug, 64 bit and endianness safe file format.
+ * The format is Y2K38 bug, 64 bit and endianness safe.
  * We need a portable format, because everything in the system could
  * change during the downtime. Someone could change the machine from
  * big-endian 32 bit architecture to 64 bit little-endian computer.
@@ -61,7 +61,8 @@ struct downtimedb {
 #define	DOWNTIMEDB_WHAT_SHUTDOWN	2
 #define	DOWNTIMEDB_WHAT_CRASH		3
 
-#if defined(__linux__) || defined(__FreeBSD_kernel__) \
+#if defined(__linux__) || \
+	(defined(__FreeBSD_kernel__) && !defined(__FreeBSD__)) \
 	|| defined(__GNU__) || !defined(_PATH_VARDB)
 #define	PATH_DOWNTIMEDBDIR	"/var/lib/downtimed/"
 #else
