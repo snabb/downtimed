@@ -2,7 +2,7 @@
 
                            version history
 
-version 0.6 released 2013-XX-XX
+version 0.6 released 2013-07-27
 
  - Added startup scripts for Debian, Red Hat (RHEL/Fedora/Scientific
    Linux/CentOS/etc.), Arch Linux and OpenIndiana/OpenSolaris.
