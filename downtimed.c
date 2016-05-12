@@ -721,6 +721,7 @@ version()
 #ifdef HAVE_FUTIMES
 	printf("  fsync = %d\n", cf_fsync);
 #endif
+	printf("  timefmt = %s\n", cf_timefmt);
 
 #ifdef PACKAGE_URL
 	puts("\nSee the following web site for more information and updates:");
