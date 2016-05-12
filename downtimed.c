@@ -795,6 +795,10 @@ makepidfile()
 	struct stat sb, sb2;
 	int fd;
 
+	if (strcmp(cf_pidfile, "none") == 0) {
+		return (0);
+	}
+
 retry:
 	if ((fd = open(cf_pidfile, O_WRONLY | O_CREAT, DEFFILEMODE)) < 0) {
 		logwr(LOG_ERR, "can not open pid file %s: %s",
@@ -860,6 +864,9 @@ retry:
 static void
 removepidfile()
 {
+	if (strcmp(cf_pidfile, "none") == 0) {
+		return;
+	}
 
 	/*
 	 * We are not releasing the lock. We still have an open
