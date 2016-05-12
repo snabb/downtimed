@@ -695,8 +695,8 @@ static void
 usage()
 {
 
-	fputs("usage: " PROGNAME " [-DvS] [-d datadir] [-l log] [-p pidfile] "
-	    "[-s sleep]\n", stderr);
+	fputs("usage: " PROGNAME " [-DvS] [-d datadir] [-f timefmt] "
+	    "[-l log] [-p pidfile] [-s sleep]\n", stderr);
 	exit(EX_USAGE);
 }
 

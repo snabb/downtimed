@@ -194,8 +194,8 @@ static void
 usage()
 {
 
-	fputs("usage: " PROGNAME " [-v] [-d downtimedbfile] [-n num] "
-	    "[-s sleep] [-u]\n", stderr);
+	fputs("usage: " PROGNAME " [-v] [-d downtimedbfile] [-f timefmt] "
+	    "[-n num] [-s sleep] [-u]\n", stderr);
 	exit(EX_USAGE);
 }
 
