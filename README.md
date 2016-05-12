@@ -132,7 +132,11 @@ The downtimed distribution includes the following operating system and
 distribution specific startup script samples. They are located in the
 "startup-scripts" directory. It is assumed that system administrators
 or port/package maintainers will implement and configure the required
-startup scripts.
+startup scripts. They are not installed by default.
+
+This program is not really useful unless there is a proper startup script
+in place. Refer to your operating system or distribution manual on how
+to create and manage daemon startup scripts.
 
 ### Arch Linux
 
@@ -188,13 +192,6 @@ service at the system startup.
 A startup script for GNU/Linux distributions using upstart(8) to bring
 up system daemons, such as the Ubuntu distribution, is included in
 upstart-startup.conf. It should be installed as /etc/init/downtimed.conf.
-
-
-These startup scripts are not installed by default.
-
-This program is not really useful unless there is a proper startup script
-in place. Refer to your operating system or distribution manual on how
-to create and manage daemon startup scripts.
 
 
 ## Usage documentation
