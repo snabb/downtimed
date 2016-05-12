@@ -1,7 +1,7 @@
 #
 # configure.ac
 #
-# Copyright (c) 2009-2013 EPIPE Communications. All rights reserved.
+# Copyright (c) 2009-2013 Janne Snabb. All rights reserved.
 #
 # This software is licensed under the terms and conditions of the FreeBSD
 # License which is also known as the Simplified BSD License. You should have 
@@ -9,7 +9,7 @@
 # 
 
 AC_PREREQ(2.65)
-AC_INIT([downtimed],[0.6],[opensource@epipe.com],[],[http://dist.epipe.com/downtimed/])
+AC_INIT([downtimed],[0.6],[snabb@epipe.com],[],[http://dist.epipe.com/downtimed/])
 AC_CONFIG_SRCDIR([downtimed.c])
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_AUX_DIR([build-aux])

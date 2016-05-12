@@ -1,5 +1,5 @@
 /*-
- * Copyright (c) 2009-2013 EPIPE Communications. All rights reserved.
+ * Copyright (c) 2009-2013 Janne Snabb. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -22,16 +22,12 @@
  * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
  * SUCH DAMAGE.
  *
- * The views and conclusions contained in the software and documentation are
- * those of the authors and should not be interpreted as representing official
- * policies, either expressed or implied, of EPIPE Communications.
- *
  *
  * Software web site:
  *   http://dist.epipe.com/downtimed/
  *
  * Author contact information:
- *   opensource@epipe.com
+ *   snabb@epipe.com
  */
 
 /* Include config.h in case we use autoconf. */
@@ -208,7 +204,7 @@ version()
 	puts(PROGNAME " " PROGVERSION " - display system downtime records "
 	    "made by downtimed(8)\n");
 
-	puts("Copyright (c) 2009-2013 EPIPE Communications. "
+	puts("Copyright (c) 2009-2013 Janne Snabb. "
 	    "All rights reserved.");
 	puts("This software is licensed under the terms and conditions of the "
 	    "FreeBSD");
