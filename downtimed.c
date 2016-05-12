@@ -146,6 +146,7 @@ static int	daemon(int, int);
 /* Command line arguments with their defaults */
 
 static char *	cf_log = "daemon";    /* syslog facility or filename with / */
+static int	cf_fork = 1;      /* whether to call daemon() which fork()s */
 static char *	cf_pidfile = _PATH_VARRUN PROGNAME ".pid";
 static char *	cf_datadir = PATH_DOWNTIMEDBDIR;
 static long	cf_sleep = 15;        /* update time stamp every 15 seconds */
@@ -221,13 +222,13 @@ main(int argc, char *argv[])
 		errx(EX_OSERR, "asprintf failed, out of memory?");
 	}
 
-#ifndef __APPLE__  /* under Mac OS X, use launchd(8) */
-	/* run as daemon (fork and detach from controlling tty) */
-	if (daemon(0, 0) < 0) {
-		logwr(LOG_CRIT, "starting daemon failed: %s", strerror(errno));
-		err(EX_OSERR, "starting daemon failed");
+	if (cf_fork) {
+		/* run as daemon (fork and detach from controlling tty) */
+		if (daemon(0, 0) < 0) {
+			logwr(LOG_CRIT, "starting daemon failed: %s", strerror(errno));
+			err(EX_OSERR, "starting daemon failed");
+		}
 	}
-#endif
 
 	/* create pid file */
 	if (makepidfile() < 0) {
@@ -691,7 +692,7 @@ static void
 usage()
 {
 
-	fputs("usage: " PROGNAME " [-DvS] [-d datadir] [-f timefmt] "
+	fputs("usage: " PROGNAME " [-DFvS] [-d datadir] [-f timefmt] "
 	    "[-l log] [-p pidfile] [-s sleep]\n", stderr);
 	exit(EX_USAGE);
 }
@@ -745,6 +746,9 @@ parseargs(int argc, char *argv[])
 			break;
 		case 'd':
 			cf_datadir = optarg;
+			break;
+		case 'F':
+			cf_fork = 0;
 			break;
 		case 'f':
 			cf_timefmt = optarg;
