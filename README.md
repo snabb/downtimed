@@ -1,7 +1,7 @@
 downtimed - system downtime monitoring and reporting tool
 =========================================================
 
-Copyright (c) 2009-2013 Janne Snabb. All rights reserved.
+Copyright (c) 2009-2016 Janne Snabb. All rights reserved.
 
 This software is licensed under the terms and conditions of the FreeBSD
 License which is also known as the Simplified BSD License. You should have
@@ -23,8 +23,8 @@ snabb@epipe.com
 ## Portability
 
 Currently supported operating systems:
- - Recent versions of FreeBSD, NetBSD and OpenBSD
  - Modern GNU/Linux distributions
+ - Recent versions of FreeBSD, NetBSD and OpenBSD
  - Mac OS X/Darwin
  - GNU/Hurd
  - Solaris / OpenSolaris / OpenIndiana
@@ -115,8 +115,8 @@ MacOS X as follows:
 `mkdir /var/lib/downtimed`
 
 Note that you can determine the default data directory location on
-your system by issuing "downtimed -v" command or you can specify a
-different directory with the "-d" option. Set the directory permissions
+your system by issuing `downtimed -v` command or you can specify a
+different directory with the `-d` option. Set the directory permissions
 as appropriate in your environment. If you are installing a port or
 package tailored for your system, this step is most likely taken care
 for you automatically.
@@ -144,21 +144,19 @@ be installed as /etc/rc.d/downtimed and added to the DAEMONS setting in
 
 A startup script for GNU/Debian and related distributions is included as
 debian-startup.sh. It should be installed as /etc/init.d/downtimed.
-Running the command "update-rc.d downtimed defaults" enables starting the
+Running the command `update-rc.d downtimed defaults` enables starting the
 service at the system startup.
 
 ### FreeBSD
 
 A sample startup script for FreeBSD is included as freebsd-startup.sh.
-It should be installed as /usr/local/etc/rc.d/downtimed. Add:
-	downtimed_enable="YES"
-...in one of the following files to enable boot time startup:
-	/etc/rc.conf
-	/etc/rc.conf.local
-	/etc/rc.conf.d/downtimed
+It should be installed as /usr/local/etc/rc.d/downtimed.
+
+Add `downtimed_enable="YES"` in one of the following files to enable boot time
+startup: /etc/rc.conf /etc/rc.conf.local /etc/rc.conf.d/downtimed
+
 Add the following if you want to configure downtimed(8) command line
-options:
-	downtimed_flags="<set as needed>"
+options: `downtimed_flags="<set as needed>"`
 
 ### Mac OS X
 
@@ -182,7 +180,7 @@ system startup.
 
 A startup script for Red Hat related distributions is included as
 redhat-startup.sh. It should be installed as /etc/rc.d/init.d/downtimed.
-Running the command "chkconfig --add downtimed" enables starting the
+Running the command `chkconfig --add downtimed` enables starting the
 service at the system startup.
 
 ### Ubuntu
