@@ -9,19 +9,18 @@ received a copy of that license along with this software.
 
 Software web site:
 
-  http://dist.epipe.com/downtimed/
+http://dist.epipe.com/downtimed/
 
 Development version is available at Github:
 
-  https://github.com/snabb/downtimed
+https://github.com/snabb/downtimed
 
 Author's e-mail address for reporting bugs, sending contributions etc:
 
-  snabb@epipe.com
+snabb@epipe.com
 
 
-Portability
-===========
+## Portability
 
 Currently supported operating systems:
  - Recent versions of FreeBSD, NetBSD and OpenBSD
@@ -45,8 +44,7 @@ are available only in modern operating systems. These include for example
 asprintf(3), vasprintf(3), snprintf(3), err(3) and errx(3).
 
 
-History
-=======
+## History
 
 The author of this software had a Xen based virtual private server
 (VPS) running FreeBSD operating system. Occasionally the owner of the
@@ -67,8 +65,7 @@ the primary server.
 Therefore downtimed was needed.
 
 
-Features
-========
+## Features
 
 downtimed was made to monitor operating system downtime, shutdowns and
 crashes on the monitored host itself and to keep a record of such events.
@@ -90,8 +87,7 @@ downtimes(1) is a command-line tool which can be used to inspect previous
 downtime records recorded in the downtime database file.
 
 
-Installation
-============
+## Installation
 
 Installation should be preferably done through a port or a package
 which is tailored to your specific operating system.
@@ -99,9 +95,11 @@ which is tailored to your specific operating system.
 If one does not exist or if you yourself are making such a port or a
 package, the basic GNU autotools based installation should be as follows:
 
-  ./configure
-  make
-  make install
+```
+./configure
+make
+make install
+```
 
 The above does NOT install any startup scripts which are REQUIRED for
 proper function of downtimed. See the following chapter.
@@ -110,11 +108,11 @@ The program also needs a persistent data directory for the time stamp
 and the downtime database files. It should be created on *BSD and
 MacOS X as follows:
 
-  mkdir /var/db/downtimed
+`mkdir /var/db/downtimed`
 
 ...or on GNU/Linux, Debian GNU/kFreeBSD, GNU/Hurd or Solaris as follows:
 
-  mkdir /var/lib/downtimed
+`mkdir /var/lib/downtimed`
 
 Note that you can determine the default data directory location on
 your system by issuing "downtimed -v" command or you can specify a
@@ -124,8 +122,7 @@ package tailored for your system, this step is most likely taken care
 for you automatically.
 
 
-Startup scripts
-===============
+## Startup scripts
 
 It seems that every different operating system and distribution has
 invented their own ways of starting system daemons during the boot
@@ -137,21 +134,21 @@ distribution specific startup script samples. They are located in the
 or port/package maintainers will implement and configure the required
 startup scripts.
 
-Arch Linux
-----------
+### Arch Linux
+
 Arch Linux startup script is included as archlinux-startup.sh. It should
 be installed as /etc/rc.d/downtimed and added to the DAEMONS setting in
 /etc/rc.conf.
 
-Debian
-------
+### Debian
+
 A startup script for GNU/Debian and related distributions is included as
 debian-startup.sh. It should be installed as /etc/init.d/downtimed.
 Running the command "update-rc.d downtimed defaults" enables starting the
 service at the system startup.
 
-FreeBSD
--------
+### FreeBSD
+
 A sample startup script for FreeBSD is included as freebsd-startup.sh.
 It should be installed as /usr/local/etc/rc.d/downtimed. Add:
 	downtimed_enable="YES"
@@ -163,33 +160,33 @@ Add the following if you want to configure downtimed(8) command line
 options:
 	downtimed_flags="<set as needed>"
 
-Mac OS X
---------
+### Mac OS X
+
 Mac OS X/Darwin launchd(8) configuration file com.epipe.downtimed.plist is
 also included. This file should be installed to /Library/LaunchDaemons.
 
-OpenIndiana / OpenSolaris / Solaris
------------------------------------
+### OpenIndiana / OpenSolaris / Solaris
+
 SMF (Service Management Facility) manifest for OpenIndiana, OpenSolaris
 and Solaris 10 & 11 is in downtimed.smf.xml. It is not usable on Solaris
 9 and older as they need a SysV style init script instead.
 
-openSUSE
---------
+### openSUSE
+
 A startup script for openSUSE is included as opensuse-startup.sh. It
 should be installed as /etc/init.d/downtimed. Running the command
-"innserv /etc/init.d/downtimed" enables starting the service at the
+`innserv /etc/init.d/downtimed` enables starting the service at the
 system startup.
 
-Red Hat based distributions (RHEL, Fedora, SL, Oracle, CentOS, etc.)
---------------------------------------------------------------------
+### Red Hat based distributions (RHEL, Fedora, SL, Oracle, CentOS, etc.)
+
 A startup script for Red Hat related distributions is included as
 redhat-startup.sh. It should be installed as /etc/rc.d/init.d/downtimed.
 Running the command "chkconfig --add downtimed" enables starting the
 service at the system startup.
 
-Ubuntu
-------
+### Ubuntu
+
 A startup script for GNU/Linux distributions using upstart(8) to bring
 up system daemons, such as the Ubuntu distribution, is included in
 upstart-startup.conf. It should be installed as /etc/init/downtimed.conf.
@@ -202,24 +199,22 @@ in place. Refer to your operating system or distribution manual on how
 to create and manage daemon startup scripts.
 
 
-Usage documentation
-===================
+## Usage documentation
 
 Have a look at downtimed(8) manual page:
 
-  man downtimed
+`man downtimed`
 
 ... as well as the downtimes(1) manual page:
 
-  man downtimes
+`man downtimes`
 
 Alternatively you can find a PDF version of the manual pages at:
 
-  http://dist.epipe.com/downtimed/
+http://dist.epipe.com/downtimed/
 
 
-Contributions
-=============
+## Contributions
 
 If you port this software to a new operating system, find bugs or
 implement new features, it would be nice if you could send your patches
@@ -227,8 +222,7 @@ to the author either through Github or by e-mail. See the top of this
 document for contact information.
 
 
-Acknowledgements
-================
+## Acknowledgements
 
 The following people have contributed patches or other improvements to
 this software:
