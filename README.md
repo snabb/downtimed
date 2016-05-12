@@ -11,13 +11,9 @@ Software web site:
 
   http://dist.epipe.com/downtimed/
 
-Development version is available at Launchpad:
+Development version is available at Github:
 
-  https://launchpad.net/downtimed
-
-Main development branch of downtimed is available with Bazaar VCS:
-
-  bzr branch lp:downtimed
+  https://github.com/snabb/downtimed
 
 Author's e-mail address for reporting bugs, sending contributions etc:
 
@@ -227,7 +223,7 @@ Contributions
 
 If you port this software to a new operating system, find bugs or
 implement new features, it would be nice if you could send your patches
-to the author either through Launchpad or by e-mail. See the top of this
+to the author either through Github or by e-mail. See the top of this
 document for contact information.
 
 
