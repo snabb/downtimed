@@ -22,15 +22,12 @@ snabb@epipe.com
 
 ## Portability
 
-Currently supported operating systems:
+Compatible operating systems:
  - Modern GNU/Linux distributions
  - Recent versions of FreeBSD, NetBSD and OpenBSD
  - Mac OS X/Darwin
  - GNU/Hurd
  - Solaris / OpenSolaris / OpenIndiana
-
-The software probably works on other modern *BSD variants with zero or
-little modifications.
 
 The only really non-portable part of the program is the getboottime()
 function which uses an operating system specific interface for finding
@@ -241,4 +238,3 @@ Others who I may have forgotten. (Sorry!)
 
 Thank You!
 
-/* eof */
