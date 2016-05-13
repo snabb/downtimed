@@ -26,8 +26,6 @@
  * Software web site:
  *   http://dist.epipe.com/downtimed/
  *
- * Author contact information:
- *   snabb@epipe.com
  */
 
 /*

@@ -11,13 +11,11 @@ Software web site:
 
 http://dist.epipe.com/downtimed/
 
-Development version is available at Github:
+Development version is available at GitHub:
 
 https://github.com/snabb/downtimed
 
-Author's e-mail address for reporting bugs, sending contributions etc:
-
-snabb@epipe.com
+Use GitHub for reporting bugs, sending contributions etc.
 
 
 ## Portability
@@ -219,19 +217,19 @@ document for contact information.
 The following people have contributed patches or other improvements to
 this software:
 
-Henrik Ahlgren <pablo@seestieto.com>
+Henrik Ahlgren <pablo at seestieto.com>
  - Mac OS X patches
 
-Mats Erik Andersson <openbsd@gisladisker.se>
+Mats Erik Andersson <openbsd at gisladisker.se>
  - OpenBSD, Debian GNU/kFreeBSD and other patches
 
-Federico Lucifredi <flucifredi@acm.org>
+Federico Lucifredi <flucifredi at acm.org>
  - openSUSE startup script
 
-Jason Melton <jason.melton@gmail.com>
+Jason Melton <jason.melton at gmail.com>
  - Arch Linux startup script
 
-Douglas Thrift <douglas@douglasthrift.net>
+Douglas Thrift <douglas at douglasthrift.net>
  - FreeBSD 9 compatibility fix
 
 Others who I may have forgotten. (Sorry!)
