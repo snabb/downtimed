@@ -14,7 +14,7 @@ downtimed_SOURCES = downtimed.c downtimedb.c downtimedb.h
 downtimes_SOURCES = downtimes.c downtimedb.c downtimedb.h
 dist_man_MANS = downtimed.8 downtimes.1
 
-EXTRA_DIST = README LICENSE INSTALL NEWS startup-scripts
+EXTRA_DIST = README.md LICENSE INSTALL NEWS startup-scripts
 
 #install-exec-hook:
 #	ln -f $(DESTDIR)$(bindir)/downtimes$(EXEEXT) \
