@@ -204,11 +204,10 @@ version()
 
 	puts("Copyright (c) 2009-2013 Janne Snabb. "
 	    "All rights reserved.");
-	puts("This software is licensed under the terms and conditions of the "
-	    "FreeBSD");
-	puts("License which is also known as the Simplified BSD License. You "
-	    "should have ");
-	puts("received a copy of that license along with this software.\n");
+
+	puts("This software is licensed under the terms and conditions of the");
+	puts("Simplified BSD License. You should have received a copy of that");
+	puts("license along with this software.\n");
 
 	puts("Default settings:");
 	printf("  downtimedbfile = %s\n", cf_downtimedbfile);

@@ -3,9 +3,9 @@
 #
 # Copyright (c) 2009-2013 Janne Snabb. All rights reserved.
 #
-# This software is licensed under the terms and conditions of the FreeBSD
-# License which is also known as the Simplified BSD License. You should have
-# received a copy of that license along with this software.
+# This software is licensed under the terms and conditions of the
+# Simplified BSD License. You should have received a copy of that
+# license along with this software.
 #
 
 sbin_PROGRAMS = downtimed
