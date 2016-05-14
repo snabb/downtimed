@@ -3,7 +3,7 @@ Description=Downtime record keeper
 
 [Service]
 EnvironmentFile=-/etc/default/downtimed
-ExecStart=/usr/sbin/downtimed -F $DOWNTIMED_OPTS
+ExecStart=/usr/local/sbin/downtimed -F $DOWNTIMED_OPTS
 ExecReload=/bin/kill -HUP $MAINPID
 Type=simple
 Restart=on-failure
