@@ -133,18 +133,25 @@ This program is not really useful unless there is a proper startup script
 in place. Refer to your operating system or distribution manual on how
 to create and manage daemon startup scripts.
 
+### systemd: Debian, Ubuntu, RHEL / CentOS
+
+Debian 8, Ubuntu 15.04, RHEL / CentOS 7 and later versions are using systemd
+for managing system services.
+
+systemd unit file is included as downtimed.service. It should be installed
+as /etc/systemd/system/downtimed.service. Issue the following commands as
+root to enable and start the service:
+```
+systemctl enable downtimed
+systemctl start downtimed
+
+```
+
 ### Arch Linux
 
 Arch Linux startup script is included as archlinux-startup.sh. It should
 be installed as /etc/rc.d/downtimed and added to the DAEMONS setting in
 /etc/rc.conf.
-
-### Debian
-
-A startup script for GNU/Debian and related distributions is included as
-debian-startup.sh. It should be installed as /etc/init.d/downtimed.
-Running the command `update-rc.d downtimed defaults` enables starting the
-service at the system startup.
 
 ### FreeBSD
 
@@ -175,18 +182,32 @@ should be installed as /etc/init.d/downtimed. Running the command
 `innserv /etc/init.d/downtimed` enables starting the service at the
 system startup.
 
-### Red Hat based distributions (RHEL, Fedora, SL, Oracle, CentOS, etc.)
+### old Debian
 
-A startup script for Red Hat related distributions is included as
+A startup script for GNU/Debian and related distributions with SysV style
+init scripts is included as debian-startup.sh. It should be installed as
+/etc/init.d/downtimed. Running the command `update-rc.d downtimed defaults`
+enables starting the service at the system startup.
+
+Users of Debian 8 and later should look at the systemd instructions above.
+
+### old RHEL based distributions (CentOS, Scientific Linux, Oracle Linux)
+
+A startup script for RHEL 5 and 6 and related distributions is included as
 redhat-startup.sh. It should be installed as /etc/rc.d/init.d/downtimed.
 Running the command `chkconfig --add downtimed` enables starting the
 service at the system startup.
 
-### Ubuntu
+Users of RHEL/CentOS 7 and later should look at the systemd instructions above.
+
+### old Ubuntu
 
 A startup script for GNU/Linux distributions using upstart(8) to bring
-up system daemons, such as the Ubuntu distribution, is included in
-upstart-startup.conf. It should be installed as /etc/init/downtimed.conf.
+up system daemons, such as the Ubuntu distribution until version 14.10, is
+included in upstart-startup.conf. It should be installed as
+/etc/init/downtimed.conf.
+
+Users of Ubuntu 15.04 and later should look at the systemd instructions above.
 
 
 ## Usage documentation
