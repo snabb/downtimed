@@ -736,7 +736,7 @@ parseargs(int argc, char *argv[])
 	int c;
 	char *p;
 
-	while ((c = getopt(argc, argv, "Dd:f:l:p:s:Svh?")) != -1) {
+	while ((c = getopt(argc, argv, "Dd:Ff:l:p:s:Svh?")) != -1) {
 		switch (c) {
 		case 'D':
 			cf_downtimedb = 0;
