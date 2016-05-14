@@ -31,11 +31,11 @@ The
 .B downtimed
 daemon waits in the background, frequently updating a time stamp file
 on the disk. If the daemon is killed with a signal associated with a
-normal system shutdown procedure, it will record the shutdown time on
+normal system shutdown procedure, it records the shutdown time on
 the disk.
 .PP
 When the daemon is restarted during the next boot process,
-it will report how long the system was down and whether it was properly
+it reports how long the system was down and whether it was properly
 shut down or crashed. The downtime report is output to the system log
 or to a specified log file. Also a record is appended to the downtime
 database.
@@ -53,7 +53,7 @@ Do not call
 .BR daemon (3)
 to
 .BR fork (2)
-to background. Useful with modern service managers such as
+to background. Useful with modern system service managers such as
 .BR systemd (8) ,
 .BR launchd (8)
 and others.
