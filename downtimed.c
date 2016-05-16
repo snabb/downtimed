@@ -24,7 +24,7 @@
  *
  *
  * Software web site:
- *   http://dist.epipe.com/downtimed/
+ *   https://dist.epipe.com/downtimed/
  *
  */
 

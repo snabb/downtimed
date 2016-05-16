@@ -9,7 +9,7 @@ this software.
 
 Software web site:
 
-http://dist.epipe.com/downtimed/
+https://dist.epipe.com/downtimed/
 
 Development version is available at GitHub:
 
@@ -222,7 +222,7 @@ Have a look at downtimed(8) manual page:
 
 Alternatively you can find a PDF version of the manual pages at:
 
-http://dist.epipe.com/downtimed/
+https://dist.epipe.com/downtimed/
 
 
 ## Contributions
