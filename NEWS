@@ -2,6 +2,39 @@
 
                            version history
 
+version 1.0 released 2016-05-24
+
+ - This is mainly a maintenance release. There are no significant new
+   features. The software appears to be so stable that it is the time to
+   release 1.0 now.
+
+ - Add downtimed(8) command line option -F for enabling seamless
+   operation with modern system service supervisors such as systemd(8) and
+   others. This option disables calling daemon(3) and thus fork(2)ing into
+   the background. In systemd(8) terminology this is a [Service] Type=
+   "simple".
+
+ - Eliminate #ifndef __APPLE__ in the code. OS X users must now add the -F
+   option described above to their downtimed(8) launchd(8) configuration.
+   The example configuration startup-scripts/com.epipe.downtimed.plist was
+   updated accordingly.
+
+ - Add systemd.service(5) file in startup-scripts/downtimed.service.
+
+ - Add -f command line option to usage help strings. Reported and a patch
+   supplied by Mats Erik Andersson. Thanks!
+
+ - Update autotools produced scripts, build-aux.
+
+ - Moved code hosting from Launchpad to GitHub. The new location is:
+
+     https://github.com/snabb/downtimed
+
+   Also README was changed to README.md.
+
+ - Miscellaneous minor improvements and changes in the documentation.
+
+
 version 0.6 released 2013-07-27
 
  - Added startup scripts for Debian, Red Hat (RHEL/Fedora/Scientific
@@ -117,4 +150,3 @@ version 0.1 released 2010-05-22
 
  - initial release
 
-/* eof */

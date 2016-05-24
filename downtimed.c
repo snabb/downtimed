@@ -1,5 +1,5 @@
 /*-
- * Copyright (c) 2009-2013 Janne Snabb. All rights reserved.
+ * Copyright (c) 2009-2016 Janne Snabb. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -703,7 +703,7 @@ version()
 
 	puts(PROGNAME " " PROGVERSION " - system downtime reporting daemon\n");
 
-	puts("Copyright (c) 2009-2013 Janne Snabb. "
+	puts("Copyright (c) 2009-2016 Janne Snabb. "
 	    "All rights reserved.");
 
 	puts("This software is licensed under the terms and conditions of the");

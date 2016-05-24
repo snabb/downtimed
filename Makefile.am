@@ -1,7 +1,7 @@
 #
 # Makefile.am
 #
-# Copyright (c) 2009-2013 Janne Snabb. All rights reserved.
+# Copyright (c) 2009-2016 Janne Snabb. All rights reserved.
 #
 # This software is licensed under the terms and conditions of the
 # Simplified BSD License. You should have received a copy of that

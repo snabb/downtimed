@@ -1,7 +1,7 @@
 #
 # configure.ac
 #
-# Copyright (c) 2009-2013 Janne Snabb. All rights reserved.
+# Copyright (c) 2009-2016 Janne Snabb. All rights reserved.
 #
 # This software is licensed under the terms and conditions of the
 # Simplified BSD License. You should have received a copy of that
@@ -9,7 +9,7 @@
 # 
 
 AC_PREREQ(2.65)
-AC_INIT([downtimed],[0.6],[],[],[https://dist.epipe.com/downtimed/])
+AC_INIT([downtimed],[1.0],[],[],[https://dist.epipe.com/downtimed/])
 AC_CONFIG_SRCDIR([downtimed.c])
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_AUX_DIR([build-aux])
