@@ -8,6 +8,11 @@ version 1.0 released 2016-05-24
    features. The software appears to be so stable that it is the time to
    release 1.0 now.
 
+ - Enable downtime(1) command and manual page. It was previously commented
+   out but enabled in Debian and Ubuntu packaging. The singular form
+   displays just the most recent downtime entry. The original idea was that
+   this is the counterpart of the uptime(1) command.
+
  - Add downtimed(8) command line option -F for enabling seamless
    operation with modern system service supervisors such as systemd(8) and
    others. This option disables calling daemon(3) and thus fork(2)ing into
