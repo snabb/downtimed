@@ -24,6 +24,10 @@ install-data-hook:
 	ln -f $(DESTDIR)$(mandir)/man1/downtimes.1 \
 	    $(DESTDIR)$(mandir)/man1/downtime.1
 
+uninstall-hook:
+	rm -f $(DESTDIR)$(bindir)/downtime$(EXEEXT)
+	rm -f $(DESTDIR)$(mandir)/man1/downtime.1
+
 .1.pdf:
 	pdfroff --no-toc -man -mpdfmark $< > $@
 
