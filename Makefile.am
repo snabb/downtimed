@@ -34,4 +34,7 @@ uninstall-hook:
 .8.pdf:
 	pdfroff --no-toc -man -mpdfmark $< > $@
 
+.md.html:
+	grip --export $< $@
+
 # eof
