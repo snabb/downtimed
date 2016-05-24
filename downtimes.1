@@ -21,22 +21,22 @@ downtimes \- display system downtime records made by
 .IR sleep \|]
 .RB [\| \-u \|]
 .br
-.\".B downtime
-.\".RB [\| \-d
-.\".IR downtimedbfile \|]
-.\".RB [\| \-f
-.\".IR timefmt \|]
-.\".RB [\| \-n
-.\".IR num \|]
-.\".RB [\| \-s
-.\".IR sleep \|]
-.\".RB [\| \-u \|]
-.\".br
 .B downtimes
 .B \-v
-.\".br
-.\".B downtime
-.\".B \-v
+.br
+.B downtime
+.RB [\| \-d
+.IR downtimedbfile \|]
+.RB [\| \-f
+.IR timefmt \|]
+.RB [\| \-n
+.IR num \|]
+.RB [\| \-s
+.IR sleep \|]
+.RB [\| \-u \|]
+.br
+.B downtime
+.B \-v
 .SH DESCRIPTION
 The
 .B downtimes
@@ -44,12 +44,12 @@ command displays the contents of the downtime database in human readable
 format. The downtime database is maintained by
 .BR downtimed (8).
 .PP
-.\"The singular form
-.\".B downtime
-.\"displays only details about the last time the system was down where
-.\"as the plural form
-.\".B downtimes
-.\"displays all the records in the database.
+The singular form
+.B downtime
+displays details only about the last time the system was down,
+whereas the plural form
+.B downtimes
+displays all records in the database.
 The
 .B \-n
 option can be used to specify the number of downtime

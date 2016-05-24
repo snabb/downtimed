@@ -16,13 +16,13 @@ dist_man_MANS = downtimed.8 downtimes.1
 
 EXTRA_DIST = README.md LICENSE INSTALL NEWS startup-scripts
 
-#install-exec-hook:
-#	ln -f $(DESTDIR)$(bindir)/downtimes$(EXEEXT) \
-#	    $(DESTDIR)$(bindir)/downtime$(EXEEXT)
+install-exec-hook:
+	ln -f $(DESTDIR)$(bindir)/downtimes$(EXEEXT) \
+	    $(DESTDIR)$(bindir)/downtime$(EXEEXT)
 
-#install-data-hook:
-#	ln -f $(DESTDIR)$(mandir)/man1/downtimes.1 \
-#	    $(DESTDIR)$(mandir)/man1/downtime.1
+install-data-hook:
+	ln -f $(DESTDIR)$(mandir)/man1/downtimes.1 \
+	    $(DESTDIR)$(mandir)/man1/downtime.1
 
 .1.pdf:
 	pdfroff --no-toc -man -mpdfmark $< > $@
