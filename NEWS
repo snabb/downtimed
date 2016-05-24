@@ -24,6 +24,8 @@ version 1.0 released 2016-05-24
  - Add -f command line option to usage help strings. Reported and a patch
    supplied by Mats Erik Andersson. Thanks!
 
+ - Allow disabling pid file creation with -p none.
+
  - Update autotools produced scripts, build-aux.
 
  - Moved code hosting from Launchpad to GitHub. The new location is:
