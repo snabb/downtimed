@@ -20,9 +20,9 @@ Use GitHub for reporting bugs, sending contributions etc.
 
 ## Portability
 
-Compatible operating systems:
- - Modern GNU/Linux distributions
- - Recent versions of FreeBSD, NetBSD and OpenBSD
+Compatible operating systems / distributions:
+ - GNU/Linux
+ - FreeBSD, NetBSD and OpenBSD
  - Mac OS X/Darwin
  - GNU/Hurd
  - Solaris / OpenSolaris / OpenIndiana
