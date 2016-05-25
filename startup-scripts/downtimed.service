@@ -1,5 +1,6 @@
 [Unit]
 Description=Downtime record keeper
+Documentation=man:downtimed(8)
 
 [Service]
 EnvironmentFile=-/etc/default/downtimed
