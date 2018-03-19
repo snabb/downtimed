@@ -11,7 +11,8 @@ OPTIONS=""
 # -F
 #  Do not call daemon(3) to fork(2) to background. Useful with modern
 #  system service managers such as systemd(8), launchd(8) and others.
-OPTIONS="$OPTIONS -F "
+#
+# OPTIONS="$OPTIONS -F "
 #
 # -f timefmt
 #  Specify the time and date format to use when reporting using
