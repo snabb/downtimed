@@ -1,0 +1,45 @@
+# Install in/as /etc/sysconfig/downtimed
+#
+OPTIONS=""
+# -D
+#  Do not create nor update the downtime database.
+#
+# -d datadir
+#  The directory where the time stamp files as well as the downtime database
+#  are located. The default directory is determined at compile time.
+#
+# -F
+#  Do not call daemon(3) to fork(2) to background. Useful with modern
+#  system service managers such as systemd(8), launchd(8) and others.
+# OPTIONS="$OPTIONS -F "
+#
+# -f timefmt
+#  Specify the time and date format to use when reporting using
+#  strftime(3) syntax. The default is "%F %T".
+#
+# -l log
+#  Logging destination. If the argument contains a slash (/) it is
+#  interpreted to be a path name to a log file, which will be created if it
+#  does not exist already. Otherwise it is interpreted as a syslog facility
+#  name. The default logging destination is "daemon" which means that the
+#  messages are written to syslog with the daemon facility code.
+#
+# -p pidfile
+#  The location of the file which keeps track of the process ID of the
+#  running daemon process. The system default location is determined at
+#  compile time. May be disabled by specifying "none".
+#
+# -S
+#  Normally fsync(2) is performed after each update of the time stamp. This
+#  option disables the fsync(2). It reduces the load on the disk system but
+#  makes the downtime measurement less reliable.
+#
+# -s sleep
+#  Defines how long to sleep between each update of the on-disk time stamp
+#  file. More frequent updates result in more accurate downtime reporting in
+#  the case of a system crash. Less frequent updates decrease the amount of
+#  disk writes performed. The default is to sleep 15 seconds between each
+#  update. If you are using a flash memory based SSD or other disk which has
+#  limited amount of write cycles per block, it might be a good idea to set
+#  the sleep time to a higher value to prolong the lifetime of the storage
+#  device.
