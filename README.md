@@ -124,6 +124,16 @@ as appropriate in your environment. If you are installing a port or
 package tailored for your system, this step is most likely taken care
 for you automatically.
 
+### Building RPMS for EL7
+
+```
+yum -y install rpmdevtools gcc make automake autoconf rpm-build
+rpmdev-setuptree
+cp downtimed.spec ~/rpmbuild/SPECS/
+cd ~/rpmbuild/SPECS/
+specfile -g -R downtimed.spec
+rpmbuild -ba downtimed.spec
+```
 
 ## Startup scripts
 
