@@ -90,6 +90,14 @@ which is tailored to your specific operating system.
 If one does not exist or if you yourself are making such a port or a
 package, the basic GNU autotools based installation should be as follows:
 
+If using a development version checked out from the source repository, begin
+by bootstrapping GNU autotools in the usual way. This is not needed if using
+a release tarball:
+```
+autoreconf
+```
+
+Proceed with the traditional configure + make build process:
 ```
 ./configure
 make
