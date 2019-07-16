@@ -88,7 +88,7 @@ Installation should be preferably done through a port or a package
 which is tailored to your specific operating system.
 
 If one does not exist or if you yourself are making such a port or a
-package, the basic GNU autotools based installation should be as follows:
+package, follow the basic GNU autotools workflow as described below.
 
 If using a development version checked out from the source repository, begin
 by bootstrapping GNU autotools in the usual way. This is not needed if using
@@ -152,7 +152,6 @@ root to enable and start the service:
 ```
 systemctl enable downtimed
 systemctl start downtimed
-
 ```
 
 ### Arch Linux
