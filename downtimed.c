@@ -46,6 +46,8 @@
 /* GNU/Linux, GNU/kFreeBSD, and GNU/Hurd */
 #define	_GNU_SOURCE
 #define	_BSD_SOURCE
+/* the following is needed to silence _BSD_SOURCE deprecation warning in modern glibc: */
+#define _DEFAULT_SOURCE
 #endif
 
 /*
