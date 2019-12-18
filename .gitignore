@@ -1,7 +1,24 @@
 aclocal.m4
-configure
 config.h.in
 Makefile.in
 autom4te.cache
 obj
 *~
+
+# Created by the 'autoreconf' step.
+configure
+
+# Created by the 'configure' step in the build process.
+.deps/
+Makefile
+config.h
+config.log
+config.status
+stamp-h1
+
+# Created by the make process.
+downtimed.o
+downtimedb.o
+downtimed
+downtimes.o
+downtimes
